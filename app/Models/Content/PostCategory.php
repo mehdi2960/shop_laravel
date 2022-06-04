@@ -8,7 +8,9 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class PostCategory extends Model
 {
-    use HasFactory,SoftDeletes;
+    use HasFactory, SoftDeletes;
 
-    protected $fillable=['name','description','slug','image','status','tags'];
+    protected $fillable = ['name', 'description', 'slug', 'image', 'status', 'tags'];
+
+    protected $casts = ['image' => 'array'];
 }
