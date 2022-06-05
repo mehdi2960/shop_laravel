@@ -13,6 +13,7 @@ use App\Http\Controllers\Admin\Content\PageController;
 use App\Http\Controllers\Admin\Content\PostController;
 use App\Http\Controllers\Admin\Notify\EmailController;
 use App\Http\Controllers\Admin\Notify\SMSController;
+use App\Http\Controllers\Admin\Setting\SettingController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -302,15 +303,15 @@ Route::prefix('admin')->namespace('Admin')->group(function (){
     //
     //    });
 
-    //    Route::prefix('setting')->namespace('Setting')->group(function(){
-    //
-    //        Route::get('/', [SettingController::class, 'index'])->name('admin.setting.index');
-    //        Route::get('/create', [SettingController::class, 'create'])->name('admin.setting.create');
-    //        Route::post('/store', [SettingController::class, 'store'])->name('admin.setting.store');
-    //        Route::get('/edit/{id}', [SettingController::class, 'edit'])->name('admin.setting.edit');
-    //        Route::put('/update/{id}', [SettingController::class, 'update'])->name('admin.setting.update');
-    //        Route::delete('/destroy/{id}', [SettingController::class, 'destroy'])->name('admin.setting.destroy');
-    //
-    //    });
+        Route::prefix('setting')->namespace('Setting')->group(function(){
+
+            Route::get('/', [SettingController::class, 'index'])->name('admin.setting.index');
+            Route::get('/create', [SettingController::class, 'create'])->name('admin.setting.create');
+            Route::post('/store', [SettingController::class, 'store'])->name('admin.setting.store');
+            Route::get('/edit/{setting}', [SettingController::class, 'edit'])->name('admin.setting.edit');
+            Route::put('/update/{setting}', [SettingController::class, 'update'])->name('admin.setting.update');
+            Route::delete('/destroy/{setting}', [SettingController::class, 'destroy'])->name('admin.setting.destroy');
+
+        });
 
 });
