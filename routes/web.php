@@ -54,7 +54,11 @@ Route::prefix('admin')->namespace('Admin')->group(function (){
             Route::delete('/delete/{post}',[PostControler::class,'destroy'])->name('admin.content.post.destroy');
             //ajax
             Route::get('/status/{post}',[PostControler::class,'status'])->name('admin.content.post.status');
+            Route::get('/commentable/{post}', [PostControler::class, 'commentable'])->name('admin.content.post.commentable');
+
         });
+
+
 
         //comment
         Route::prefix('comment')->group(function(){
