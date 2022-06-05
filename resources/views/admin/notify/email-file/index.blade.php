@@ -60,8 +60,8 @@
                                 </label>
                             </td>
                             <td class="width-16-rem text-left">
-                                <a href="{{ route('admin.notify.email.edit', $email->id) }}" class="btn btn-info btn-sm"><i class="fa fa-edit"></i> ویرایش</a>
-                                <form class="d-inline" action="{{ route('admin.notify.email.destroy', $email->id) }}" method="post">
+                                <a href="{{ route('admin.notify.email-file.edit', $file->id) }}" class="btn btn-info btn-sm"><i class="fa fa-edit"></i> ویرایش</a>
+                                <form class="d-inline" action="{{ route('admin.notify.email-file.destroy', $file->id) }}" method="post">
                                     @csrf
                                     {{ method_field('delete') }}
                                 <button class="btn btn-danger btn-sm delete" type="submit"><i class="fa fa-trash-alt"></i> حذف</button>
