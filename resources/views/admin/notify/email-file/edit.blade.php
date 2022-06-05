@@ -1,6 +1,6 @@
 @extends('admin.layouts.master')
 
-@section('head-tag')
+@section('head')
 <title>ویرایش اطلاعیه ایمیلی</title>
 <link rel="stylesheet" href="{{ asset('admin-assets/jalalidatepicker/persian-datepicker.min.css') }}">
 @endsection

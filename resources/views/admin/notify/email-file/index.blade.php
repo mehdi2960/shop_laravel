@@ -51,7 +51,7 @@
                             <th>{{ $key + 1 }}</th>
                             <td>{{ $email->subject }}</td>
                             <td>{{ $file->file_size }}</td>
-                            <td>{{ $email->file_type }}</td>
+                            <td>{{ $file->file_type }}</td>
                             <td>
                                 <label>
                                     <input id="{{ $file->id }}" onchange="changeStatus({{ $file->id }})" data-url="{{ route('admin.notify.email-file.status', $file->id) }}" type="checkbox" @if ($file->status === 1)
@@ -65,8 +65,7 @@
                                     @csrf
                                     {{ method_field('delete') }}
                                 <button class="btn btn-danger btn-sm delete" type="submit"><i class="fa fa-trash-alt"></i> حذف</button>
-                            </form>
-                            </td>
+                            </form>                            </td>
                         </tr>
 
                         @endforeach
@@ -98,11 +97,11 @@
                     if(response.status){
                         if(response.checked){
                             element.prop('checked', true);
-                            successToast('ایمیل  با موفقیت فعال شد')
+                            successToast('فایل با موفقیت فعال شد')
                         }
                         else{
                             element.prop('checked', false);
-                            successToast('ایمیل  با موفقیت غیر فعال شد')
+                            successToast('فایل با موفقیت غیر فعال شد')
                         }
                     }
                     else{
