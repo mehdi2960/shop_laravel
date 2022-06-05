@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin\Market;
+namespace App\Http\Controllers\Admin\Content;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\Content\PostCategoryRequest;

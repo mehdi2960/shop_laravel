@@ -9,7 +9,7 @@ use App\Models\Content\Post;
 use App\Models\Content\PostCategory;
 use Illuminate\Http\Request;
 
-class PostControler extends Controller
+class PostController extends Controller
 {
     /**
      * Display a listing of the resource.
