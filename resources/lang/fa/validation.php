@@ -158,9 +158,11 @@ return [
         "category_id"               => "دسته بندی",
         "tags"                      => "برچسب ها",
         "status"                    => "وضیعت",
-        'summary'                      => 'خلاصه',
-        'question'                      => 'پرسش',
-        'answer'                      => 'پاسخ'
+        'summary'                   => 'خلاصه',
+        'question'                  => 'پرسش',
+        'answer'                    => 'پاسخ',
+        'parent_id'                 => 'منوی والد',
+        'url'                       => 'آدرس'
 
 
     ],
