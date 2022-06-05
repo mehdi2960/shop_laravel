@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\AdminDashboardController;
+use App\Http\Controllers\Admin\Content\PostControler;
 use App\Http\Controllers\Admin\Market\BrandController;
 use App\Http\Controllers\Admin\Market\CategoryController;
 use App\Http\Controllers\Admin\Market\CommentController;
@@ -41,6 +42,18 @@ Route::prefix('admin')->namespace('Admin')->group(function (){
             Route::get('/edit/{id}', [BrandController::class, 'edit'])->name('admin.market.brand.edit');
             Route::put('/update/{id}', [BrandController::class, 'update'])->name('admin.market.brand.update');
             Route::delete('/destroy/{id}', [BrandController::class, 'destroy'])->name('admin.market.brand.destroy');
+        });
+
+        //post
+        Route::prefix('post')->group(function (){
+            Route::get('/',[PostControler::class,'index'])->name('admin.content.post.index');
+            Route::get('/create',[PostControler::class,'create'])->name('admin.content.post.create');
+            Route::post('/store',[PostControler::class,'store'])->name('admin.content.post.store');
+            Route::get('/edit/{post}',[PostControler::class,'edit'])->name('admin.content.post.edit');
+            Route::put('/update/{post}',[PostControler::class,'update'])->name('admin.content.post.update');
+            Route::delete('/delete/{post}',[PostControler::class,'destroy'])->name('admin.content.post.destroy');
+            //ajax
+            Route::get('/status/{post}',[PostControler::class,'status'])->name('admin.content.post.status');
         });
 
         //comment

@@ -73,14 +73,12 @@
                 <span>روش های ارسال</span>
             </a>
 
-
-
             <section class="sidebar-part-title">بخش محتوی</section>
             <a href="#" class="sidebar-link">
                 <i class="fas fa-bars"></i>
                 <span>دسته بندی</span>
             </a>
-            <a href="#" class="sidebar-link">
+            <a href="{{route('admin.content.post.index')}}" class="sidebar-link">
                 <i class="fas fa-bars"></i>
                 <span>پست ها</span>
             </a>

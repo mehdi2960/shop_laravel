@@ -42,7 +42,7 @@ class CategoryController extends Controller
     public function store(PostCategoryRequest $request,ImageService $imageService)
     {
         $inputs = $request->all();
-        $inputs['slug'] = str_replace(' ', '-', $inputs['name']) . '-' . Str::random(5);
+
         if($request->hasFile('image'))
         {
             $imageService->setExclusiveDirectory('images' . DIRECTORY_SEPARATOR . 'post-category');
@@ -90,8 +90,6 @@ class CategoryController extends Controller
     public function update(PostCategoryRequest $request, PostCategory $postCategory,ImageService $imageService)
     {
         $inputs = $request->all();
-
-        $inputs['slug'] = str_replace(' ', '-', $inputs['name']) . '-' . Str::random(5);
 
         if($request->hasFile('image'))
         {
