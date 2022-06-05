@@ -212,8 +212,6 @@ Route::prefix('admin')->namespace('Admin')->group(function (){
             Route::get('/commentable/{post}', [PostController::class, 'commentable'])->name('admin.content.post.commentable');
 
         });
-
-
     });
 
      //    Route::prefix('user')->namespace('User')->group(function(){
@@ -285,7 +283,6 @@ Route::prefix('admin')->namespace('Admin')->group(function (){
                 Route::get('/status/{sms}', [SMSController::class, 'status'])->name('admin.notify.sms.status');
 
             });
-
         });
 
     //    Route::prefix('ticket')->namespace('Ticket')->group(function(){
@@ -304,14 +301,10 @@ Route::prefix('admin')->namespace('Admin')->group(function (){
     //    });
 
         Route::prefix('setting')->namespace('Setting')->group(function(){
-
             Route::get('/', [SettingController::class, 'index'])->name('admin.setting.index');
-            Route::get('/create', [SettingController::class, 'create'])->name('admin.setting.create');
-            Route::post('/store', [SettingController::class, 'store'])->name('admin.setting.store');
             Route::get('/edit/{setting}', [SettingController::class, 'edit'])->name('admin.setting.edit');
             Route::put('/update/{setting}', [SettingController::class, 'update'])->name('admin.setting.update');
             Route::delete('/destroy/{setting}', [SettingController::class, 'destroy'])->name('admin.setting.destroy');
-
         });
 
 });
