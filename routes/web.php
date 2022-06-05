@@ -1,12 +1,13 @@
 <?php
 
 use App\Http\Controllers\Admin\AdminDashboardController;
+use App\Http\Controllers\Admin\Content\CommentController;
 use App\Http\Controllers\Admin\Content\ContentCategoryController;
 use App\Http\Controllers\Admin\Content\ContentCommentController;
 use App\Http\Controllers\Admin\Content\FAQController;
 use App\Http\Controllers\Admin\Content\BrandController;
 use App\Http\Controllers\Admin\Content\CategoryController;
-use App\Http\Controllers\Admin\Content\CommentController;
+//use App\Http\Controllers\Admin\Content\CommentController;
 use App\Http\Controllers\Admin\Content\MenuController;
 use App\Http\Controllers\Admin\Content\PageController;
 use App\Http\Controllers\Admin\Content\PostController;
@@ -154,14 +155,13 @@ Route::prefix('admin')->namespace('Admin')->group(function (){
 
         //comment
         Route::prefix('comment')->group(function(){
-            Route::get('/', [ContentCommentController::class, 'index'])->name('admin.content.comment.index');
-            Route::get('/show', [ContentCommentController::class, 'show'])->name('admin.content.comment.show');
-            Route::post('/store', [ContentCommentController::class, 'store'])->name('admin.content.comment.store');
-            Route::get('/edit/{id}', [ContentCommentController::class, 'edit'])->name('admin.content.comment.edit');
-            Route::put('/update/{id}', [ContentCommentController::class, 'update'])->name('admin.content.comment.update');
-            Route::delete('/destroy/{id}', [ContentCommentController::class, 'destroy'])->name('admin.content.comment.destroy');
+            Route::get('/', [CommentController::class, 'index'])->name('admin.content.comment.index');
+            Route::get('/show/{comment}', [CommentController::class, 'show'])->name('admin.content.comment.show');
+            Route::delete('/destroy/{comment}', [CommentController::class, 'destroy'])->name('admin.content.comment.destroy');
+            Route::get('/approved/{comment}', [CommentController::class, 'approved'])->name('admin.content.comment.approved');
+            Route::get('/status/{comment}', [CommentController::class, 'status'])->name('admin.content.comment.status');
+            Route::post('/answer/{comment}', [CommentController::class, 'answer'])->name('admin.content.comment.answer');
         });
-
         //faq
         Route::prefix('faq')->group(function(){
             Route::get('/', [FAQController::class, 'index'])->name('admin.content.faq.index');
