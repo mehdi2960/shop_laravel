@@ -47,10 +47,9 @@
                         </tr>
                     </thead>
                     <tbody>
+                        @foreach ($admins as $key => $admin)
 
-                     @foreach ($admins as $key => $admin)
-
-                        <tr>
+                           <tr>
                             <th>{{ $key + 1 }}</th>
                             <td>{{ $admin->email }}</td>
                             <td>{{ $admin->mobile }}</td>
@@ -83,8 +82,6 @@
                         </tr>
 
                         @endforeach
-
-
                     </tbody>
                 </table>
             </section>
