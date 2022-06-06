@@ -15,8 +15,9 @@
                     <span>ویترین</span>
                     <i class="fas fa-angle-left angle"></i>
                 </section>
+
                 <section class="sidebar-dropdown">
-                    <a href="{{route('admin.content.category.index')}}">دسته بندی</a>
+                    <a href="{{route('admin.market.category.index')}}">دسته بندی</a>
                     <a href="#">فرم کالا</a>
                     <a href="#">برندها</a>
                     <a href="#">کالاها</a>
@@ -74,7 +75,7 @@
             </a>
 
             <section class="sidebar-part-title">بخش محتوی</section>
-            <a href="#" class="sidebar-link">
+            <a href="{{route('admin.content.category.index')}}" class="sidebar-link">
                 <i class="fas fa-bars"></i>
                 <span>دسته بندی</span>
             </a>
