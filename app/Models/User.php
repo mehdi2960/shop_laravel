@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Ticket\TicketAdmin;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -44,6 +45,18 @@ class User extends Authenticatable
      *
      * @var array<string, string>
      */
+
+    public function getFullNameAttribute()
+    {
+        return "{$this->first_name} {$this->last_name}";
+    }
+
+
+    public function ticketAdmin()
+    {
+        return $this->hasOne(TicketAdmin::class);
+    }
+
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];

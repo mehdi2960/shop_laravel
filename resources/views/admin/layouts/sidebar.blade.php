@@ -129,6 +129,10 @@
                 <i class="fas fa-bars"></i>
                 <span>اولویت تیکت ها</span>
             </a>
+            <a href="{{route('admin.ticket.admin.index')}}" class="sidebar-link">
+                <i class="fas fa-bars"></i>
+                <span>ادمین تیکت ها</span>
+            </a>
             <a href="#" class="sidebar-link">
                 <i class="fas fa-bars"></i>
                 <span>تیکت های جدید</span>
