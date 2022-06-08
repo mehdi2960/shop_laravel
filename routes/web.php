@@ -5,13 +5,14 @@ use App\Http\Controllers\Admin\Content\CommentController;
 //use App\Http\Controllers\Admin\Content\ContentCategoryController;
 //use App\Http\Controllers\Admin\Content\ContentCommentController;
 use App\Http\Controllers\Admin\Content\FAQController;
-use App\Http\Controllers\Admin\Content\BrandController;
+use App\Http\Controllers\Admin\Market\BrandController;
 use App\Http\Controllers\Admin\Market\CategoryController;
 //use App\Http\Controllers\Admin\Content\CommentController;
 use App\Http\Controllers\Admin\Content\MenuController;
 use App\Http\Controllers\Admin\Content\PageController;
 use App\Http\Controllers\Admin\Content\PostController;
 use App\Http\Controllers\Admin\Market\DeliveryController;
+use App\Http\Controllers\Admin\Market\ProductController;
 use App\Http\Controllers\Admin\Notify\EmailController;
 use App\Http\Controllers\Admin\Notify\EmailFileController;
 use App\Http\Controllers\Admin\Notify\SMSController;
@@ -59,9 +60,10 @@ Route::prefix('admin')->namespace('Admin')->group(function (){
             Route::get('/', [BrandController::class, 'index'])->name('admin.market.brand.index');
             Route::get('/create', [BrandController::class, 'create'])->name('admin.market.brand.create');
             Route::post('/store', [BrandController::class, 'store'])->name('admin.market.brand.store');
-            Route::get('/edit/{id}', [BrandController::class, 'edit'])->name('admin.market.brand.edit');
-            Route::put('/update/{id}', [BrandController::class, 'update'])->name('admin.market.brand.update');
-            Route::delete('/destroy/{id}', [BrandController::class, 'destroy'])->name('admin.market.brand.destroy');
+            Route::get('/edit/{brand}', [BrandController::class, 'edit'])->name('admin.market.brand.edit');
+            Route::put('/update/{brand}', [BrandController::class, 'update'])->name('admin.market.brand.update');
+            Route::delete('/destroy/{brand}', [BrandController::class, 'destroy'])->name('admin.market.brand.destroy');
+            Route::get('/status/{brand}', [BrandController::class, 'status'])->name('admin.market.brand.status');
         });
 
         //comment
@@ -124,9 +126,9 @@ Route::prefix('admin')->namespace('Admin')->group(function (){
             Route::get('/', [ProductController::class, 'index'])->name('admin.market.product.index');
             Route::get('/create', [ProductController::class, 'create'])->name('admin.market.product.create');
             Route::post('/store', [ProductController::class, 'store'])->name('admin.market.product.store');
-            Route::get('/edit/{id}', [ProductController::class, 'edit'])->name('admin.market.product.edit');
-            Route::put('/update/{id}', [ProductController::class, 'update'])->name('admin.market.product.update');
-            Route::delete('/destroy/{id}', [ProductController::class, 'destroy'])->name('admin.market.product.destroy');
+            Route::get('/edit/{product}', [ProductController::class, 'edit'])->name('admin.market.product.edit');
+            Route::put('/update/{product}', [ProductController::class, 'update'])->name('admin.market.product.update');
+            Route::delete('/destroy/{product}', [ProductController::class, 'destroy'])->name('admin.market.product.destroy');
 
             //gallery
             Route::get('/gallery', [GalleryController::class, 'index'])->name('admin.market.gallery.index');

@@ -166,6 +166,18 @@ return [
         'keywords'                  => 'کلمات کلمات کلیدی سایت',
         'logo'                      => 'لوگو',
         'icon'                      => 'آیکون',
+        'amount'                    => 'هزینه',
+        'delivery_time'             => 'زمان ارسال',
+        'delivery_time_unit'        => 'واحد زمان ارسال',
+        'original_name'             => 'نام اصلی',
+        'persian_name'              => 'نام فارسی',
+        'brand_id'                  => 'نام برند',
+        'weight'                    => 'وزن',
+        'length'                    => 'طول',
+        'width'                     => 'عرض',
+        'height'                    => 'ارتفاع',
+        'price'                     => 'قیمت',
+        'introduction'              => 'توضیحات',
 
 
     ],
