@@ -25,7 +25,7 @@
                 </section>
 
                 <section class="d-flex justify-content-between align-items-center mt-4 mb-3 border-bottom pb-2">
-{{--                    <a href="{{ route('admin.market.gallery.create', ['product' => $product->id]) }}" class="btn btn-info btn-sm">ایجاد عکس جدید </a>--}}
+                    <a href="{{ route('admin.market.gallery.create', ['product' => $product->id]) }}" class="btn btn-info btn-sm">ایجاد عکس جدید </a>
                     <div class="max-width-16-rem">
                         <input type="text" class="form-control form-control-sm form-text" placeholder="جستجو">
                     </div>
