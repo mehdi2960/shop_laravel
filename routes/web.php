@@ -160,8 +160,8 @@ Route::prefix('admin')->namespace('Admin')->group(function (){
             Route::get('/value/{categoryAttribute}', [PropertyValueController::class, 'index'])->name('admin.market.value.index');
             Route::get('/value/create/{categoryAttribute}', [PropertyValueController::class, 'create'])->name('admin.market.value.create');
             Route::post('/value/store/{categoryAttribute}', [PropertyValueController::class, 'store'])->name('admin.market.value.store');
-            Route::get('/value/edit/{categoryAttribute}/{value}', [PropertyValueController::class, 'store'])->name('admin.market.value.edit');
-            Route::put('/value/update/{categoryAttribute}/{value}', [PropertyValueController::class, 'store'])->name('admin.market.value.update');
+            Route::get('/value/edit/{categoryAttribute}/{value}', [PropertyValueController::class, 'edit'])->name('admin.market.value.edit');
+            Route::put('/value/update/{categoryAttribute}/{value}', [PropertyValueController::class, 'update'])->name('admin.market.value.update');
             Route::delete('/value/destroy/{categoryAttribute}/{value}', [PropertyValueController::class, 'destroy'])->name('admin.market.value.destroy');
         });
 
