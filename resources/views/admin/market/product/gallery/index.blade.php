@@ -1,7 +1,7 @@
 @extends('admin.layouts.master')
 
 @section('head')
-    <title>کالاها</title>
+    <title>گالری</title>
 @endsection
 
 @section('content')
@@ -10,7 +10,7 @@
         <ol class="breadcrumb">
             <li class="breadcrumb-item font-size-12"> <a href="#">خانه</a></li>
             <li class="breadcrumb-item font-size-12"> <a href="#">بخش فروش</a></li>
-            <li class="breadcrumb-item font-size-12 active" aria-current="page"> کالاها</li>
+            <li class="breadcrumb-item font-size-12 active" aria-current="page"> گالری</li>
         </ol>
     </nav>
 
@@ -20,12 +20,12 @@
             <section class="main-body-container">
                 <section class="main-body-container-header">
                     <h5>
-                        کالاها
+                        گالری
                     </h5>
                 </section>
 
                 <section class="d-flex justify-content-between align-items-center mt-4 mb-3 border-bottom pb-2">
-                    <a href="{{ route('admin.market.product.create') }}" class="btn btn-info btn-sm">ایجاد کالای جدید </a>
+{{--                    <a href="{{ route('admin.market.gallery.create', ['product' => $product->id]) }}" class="btn btn-info btn-sm">ایجاد عکس جدید </a>--}}
                     <div class="max-width-16-rem">
                         <input type="text" class="form-control form-control-sm form-text" placeholder="جستجو">
                     </div>
@@ -38,31 +38,26 @@
                             <th>#</th>
                             <th>نام کالا</th>
                             <th> تصویر کالا</th>
-                            <th> قیمت</th>
-                            <th>دسته </th>
                             <th class="max-width-16-rem text-center"><i class="fa fa-cogs"></i> تنظیمات</th>
                         </tr>
                         </thead>
                         <tbody>
-                        @foreach ($products as $product)
+                        @foreach ($product->images as $image)
 
                             <tr>
                                 <th>{{ $loop->iteration }}</th>
                                 <td>{{ $product->name }}</td>
                                 <td>
-                                    <img src="{{ asset($product->image['indexArray'][$product->image['currentImage']] ) }}" alt="" width="100" height="50">
+                                    <img src="{{ asset($image->image['indexArray'][$image->image['currentImage']] ) }}" alt="" width="100" height="50">
                                 </td>
-                                <td>{{ $product->price }} تومان</td>
-                                <td>کالا الکترونیکی</td>
-                                <td class="width-8-rem text-left">
-                                    <a href="{{ route('admin.market.gallery.index', $product->id) }}" class="dropdown-item text-right"><i class="fa fa-images"></i> گالری</a>
-                                    <a href="{{ route('admin.market.color.index', $product->id) }}" class="dropdown-item text-right"><i class="fa fa-list-ul"></i>مدیریت رنگ ها</a>
-                                    <a href="{{ route('admin.market.product.edit', $product->id) }}" class="dropdown-item text-right"><i class="fa fa-edit"></i> ویرایش</a>
-                                    <form class="d-inline" action="{{ route('admin.market.product.destroy', $product->id) }}" method="post">
+
+                                <td class="width-16-rem text-left">
+                                    <form class="d-inline" action="{{ route('admin.market.gallery.destroy', ['product' => $product->id , 'gallery' => $image->id] ) }}" method="post">
                                         @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="dropdown-item text-right delete"><i class="fa fa-window-close"></i> حذف</button>
+                                        {{ method_field('delete') }}
+                                        <button class="btn btn-danger btn-sm delete" type="submit"><i class="fa fa-trash-alt"></i> حذف</button>
                                     </form>
+
                                 </td>
                             </tr>
 
@@ -78,6 +73,8 @@
     </section>
 
 @endsection
+
+
 @section('script')
 
     @include('admin.alerts.sweetalert.delete-confirm', ['className' => 'delete'])

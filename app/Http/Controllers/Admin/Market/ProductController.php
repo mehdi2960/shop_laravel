@@ -111,6 +111,7 @@ class ProductController extends Controller
     public function update(ProductRequest $request, Product $product, ImageService $imageService)
     {
         $inputs = $request->all();
+
         //date fixed
         $realTimestampStart = substr($request->published_at, 0, 10);
         $inputs['published_at'] = date("Y-m-d H:i:s", (int)$realTimestampStart);
@@ -142,9 +143,11 @@ class ProductController extends Controller
                 [$meta_id, $meta_key, $meta_value]
             );
         }, $meta_ids, $meta_keys, $meta_values);
+
         foreach($metas as $meta){
             ProductMeta::where('id', $meta['meta_id'])->update([
-                'meta_key' => $meta['meta_key'], 'meta_value' => $meta['meta_value']
+                'meta_key' => $meta['meta_key'],
+                'meta_value' => $meta['meta_value']
             ]);
         }
         return redirect()->route('admin.market.product.index')->with('swal-success', 'محصول  شما با موفقیت ویرایش شد');
@@ -158,7 +161,7 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
-        $result = $product->delete();
+        $product->delete();
         return redirect()->route('admin.market.product.index')->with('swal-success', 'محصول  شما با موفقیت حذف شد');
     }
 }
