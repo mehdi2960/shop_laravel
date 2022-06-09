@@ -1,7 +1,7 @@
 @extends('admin.layouts.master')
 
 @section('head')
-<title>ایجاد تخفیف عمومی</title>
+<title>ویرایش تخفیف عمومی</title>
 <link rel="stylesheet" href="{{ asset('admin-assets/jalalidatepicker/persian-datepicker.min.css') }}">
 @endsection
 
@@ -12,7 +12,7 @@
       <li class="breadcrumb-item font-size-12"> <a href="#">خانه</a></li>
       <li class="breadcrumb-item font-size-12"> <a href="#">بخش فروش</a></li>
       <li class="breadcrumb-item font-size-12"> <a href="#">تخفیف</a></li>
-      <li class="breadcrumb-item font-size-12 active" aria-current="page"> ایجاد تخفیف عمومی</li>
+      <li class="breadcrumb-item font-size-12 active" aria-current="page"> ویرایش تخفیف عمومی</li>
     </ol>
   </nav>
 
@@ -22,7 +22,7 @@
         <section class="main-body-container">
             <section class="main-body-container-header">
                 <h5>
-                  ایجاد تخفیف عمومی
+                    ویرایش تخفیف عمومی
                 </h5>
             </section>
 
@@ -31,13 +31,19 @@
             </section>
 
             <section>
-                <form action="{{ route('admin.market.discount.commonDiscount.store') }}" method="POST">
+                <form action="{{ route('admin.market.discount.commonDiscount.update', $commonDiscount->id) }}" method="POST">
                     @csrf
+                    @method('PUT')
+
+
                     <section class="row">
+
+
+
                         <section class="col-12 col-md-6">
                             <div class="form-group">
                                 <label for="">درصد تخفیف</label>
-                                <input type="text" class="form-control form-control-sm" name="percentage" value="{{ old('percentage') }}">
+                                <input type="text" class="form-control form-control-sm" name="percentage" value="{{ old('percentage', $commonDiscount->percentage) }}">
                             </div>
                             @error('percentage')
                             <span class="alert_required bg-danger text-white p-1 rounded" role="alert">
@@ -50,7 +56,7 @@
                         <section class="col-12 col-md-6">
                             <div class="form-group">
                                 <label for="">حداکثر تخفیف</label>
-                                <input type="text" name="discount_ceiling" value="{{ old('discount_ceiling') }}" class="form-control form-control-sm">
+                                <input type="text" name="discount_ceiling" value="{{ old('discount_ceiling', $commonDiscount->discount_ceiling) }}" class="form-control form-control-sm">
                             </div>
                             @error('discount_ceiling')
                             <span class="alert_required bg-danger text-white p-1 rounded" role="alert">
@@ -63,7 +69,7 @@
                            <section class="col-12 col-md-6">
                             <div class="form-group">
                                 <label for="">حداقل مبلغ خرید</label>
-                                <input type="text" name="minimal_order_amount" value="{{ old('minimal_order_amount') }}" class="form-control form-control-sm">
+                                <input type="text" name="minimal_order_amount" value="{{ old('minimal_order_amount', $commonDiscount->minimal_order_amount) }}" class="form-control form-control-sm">
                             </div>
                             @error('minimal_order_amount')
                             <span class="alert_required bg-danger text-white p-1 rounded" role="alert">
@@ -76,7 +82,7 @@
                         <section class="col-12 col-md-6">
                             <div class="form-group">
                                 <label for="">عنوان مناسبت</label>
-                                <input type="text" name="title" value="{{ old('title') }}" class="form-control form-control-sm">
+                                <input type="text" name="title" value="{{ old('title', $commonDiscount->title) }}" class="form-control form-control-sm">
                             </div>
                             @error('title')
                             <span class="alert_required bg-danger text-white p-1 rounded" role="alert">
@@ -119,18 +125,18 @@
                         <section class="col-12">
                             <div class="form-group">
                                 <label for="status">وضعیت</label>
-                                <select name="status" class="form-control form-control-sm" id="status">
-                                    <option value="0" @if(old('status') == 0) selected @endif>غیرفعال</option>
-                                    <option value="1" @if(old('status') == 1) selected @endif>فعال</option>
+                                <select name="status" id="" class="form-control form-control-sm" id="status">
+                                    <option value="0" @if (old('status', $commonDiscount->status) == 0) selected @endif>غیرفعال</option>
+                                    <option value="1" @if (old('status', $commonDiscount->status) == 1) selected @endif>فعال</option>
                                 </select>
                             </div>
                             @error('status')
-                            <span class="alert_required bg-danger text-white p-1 rounded" role="alert">
-                                <strong>
-                                    {{ $message }}
-                                </strong>
-                            </span>
-                        @enderror
+                                <span class="alert_required bg-danger text-white p-1 rounded" role="alert">
+                                    <strong>
+                                        {{ $message }}
+                                    </strong>
+                                </span>
+                            @enderror
                         </section>
 
 
@@ -147,10 +153,12 @@
 
 @endsection
 
+
 @section('script')
 
     <script src="{{ asset('admin-assets/jalalidatepicker/persian-date.min.js') }}"></script>
     <script src="{{ asset('admin-assets/jalalidatepicker/persian-datepicker.min.js') }}"></script>
+
 
     <script>
             $(document).ready(function () {

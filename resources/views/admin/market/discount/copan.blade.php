@@ -1,6 +1,6 @@
 @extends('admin.layouts.master')
 
-@section('head-tag')
+@section('head')
 <title>کوپن تخفیف</title>
 @endsection
 
