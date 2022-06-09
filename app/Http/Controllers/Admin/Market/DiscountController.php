@@ -74,6 +74,7 @@ class DiscountController extends Controller
         $amazingSales = AmazingSale::all();
         return view('admin.market.discount.amazing', compact('amazingSales'));
     }
+
     public function amazingSaleCreate()
     {
         $products = Product::all();
