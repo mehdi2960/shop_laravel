@@ -59,9 +59,13 @@
                             <th>{{ $copan->type == 0 ? 'عمومی' : 'خصوصی' }}</th>
                             <td>{{ jalaliDate($copan->start_date) }}</td>
                             <td>{{ jalaliDate($copan->end_date) }}</td>
-                            <td class="width-16-rem text-left">
-                                <a href="#" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i> ویرایش</a>
-                                <button class="btn btn-danger btn-sm" type="submit"><i class="fa fa-trash-alt"></i> حذف</button>
+                            <td class="width-16-rem text-left d-flex">
+                                <a href="{{route('admin.market.discount.copan.edit', $copan->id)}}" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i> ویرایش</a>
+                                <form action="{{route('admin.market.discount.copan.destroy', $copan->id)}}">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button class="btn btn-danger btn-sm" type="submit"><i class="fa fa-trash-alt"></i>حذف</button>
+                                </form>
                             </td>
                         </tr>
                         @endforeach
