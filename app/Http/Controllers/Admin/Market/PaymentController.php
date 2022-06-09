@@ -45,4 +45,9 @@ class PaymentController extends Controller
         $payment->save();
         return redirect()->route('admin.market.payment.index')->with('swal-success', 'تغییر شما با موفقیت انجام شد');
     }
+
+    public function show(Payment $payment)
+    {
+        return view('admin.market.payment.show', compact('payment'));
+    }
 }
