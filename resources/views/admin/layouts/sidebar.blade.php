@@ -38,7 +38,7 @@
                     <a href="#">پرداخت نشده</a>
                     <a href="#">باطل شده</a>
                     <a href="#">مرجوعی</a>
-                    <a href="#">تمام سفارشات</a>
+                    <a href="{{route('admin.market.order.all')}}">تمام سفارشات</a>
                 </section>
             </section>
 
