@@ -16,21 +16,33 @@ class PaymentController extends Controller
 
     public function offline()
     {
-        return view('admin.market.payment.index');
+        $payments = Payment::where('paymentable_type', 'App\Models\Market\OfflinePayment')->get();
+        return view('admin.market.payment.index', compact('payments'));
     }
 
     public function online()
     {
-        return view('admin.market.payment.index');
+        $payments = Payment::where('paymentable_type', 'App\Models\Market\OnlinePayment')->get();
+        return view('admin.market.payment.index', compact('payments'));
     }
 
-    public function attendance()
+    public function cash()
     {
-        return view('admin.market.payment.index');
+        $payments = Payment::where('paymentable_type', 'App\Models\Market\CashPayment')->get();
+        return view('admin.market.payment.index', compact('payments'));
     }
 
-    public function confirm()
+    public function canceled(Payment $payment)
     {
-        return view('admin.market.payment.index');
+        $payment->status = 2;
+        $payment->save();
+        return redirect()->route('admin.market.payment.index')->with('swal-success', 'تغییر شما با موفقیت انجام شد');
+    }
+
+    public function returned(Payment $payment)
+    {
+        $payment->status = 3;
+        $payment->save();
+        return redirect()->route('admin.market.payment.index')->with('swal-success', 'تغییر شما با موفقیت انجام شد');
     }
 }

@@ -50,9 +50,9 @@
                 </section>
                 <section class="sidebar-dropdown">
                     <a href="{{route('admin.market.payment.index')}}">تمام پرداخت ها</a>
-                    <a href="#">پرداخت های آنلاین</a>
-                    <a href="#">پرداخت های آفلاین</a>
-                    <a href="#">پرداخت در محل</a>
+                    <a href="{{route('admin.market.payment.online')}}">پرداخت های آنلاین</a>
+                    <a href="{{route('admin.market.payment.offline')}}">پرداخت های آفلاین</a>
+                    <a href="{{route('admin.market.payment.cash')}}">پرداخت در محل</a>
                 </section>
             </section>
 
