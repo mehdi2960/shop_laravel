@@ -15,6 +15,7 @@ use App\Http\Controllers\Admin\Market\ProductColorController;
 use App\Http\Controllers\Admin\Market\ProductController;
 use App\Http\Controllers\Admin\Market\PropertyController;
 use App\Http\Controllers\Admin\Market\PropertyValueController;
+use App\Http\Controllers\Admin\Market\StoreController;
 use App\Http\Controllers\Admin\Notify\EmailController;
 use App\Http\Controllers\Admin\Notify\EmailFileController;
 use App\Http\Controllers\Admin\Notify\SMSController;
@@ -167,14 +168,13 @@ Route::prefix('admin')->namespace('Admin')->group(function (){
             Route::delete('/value/destroy/{categoryAttribute}/{value}', [PropertyValueController::class, 'destroy'])->name('admin.market.value.destroy');
         });
 
-        //store
+        //store Anbar
         Route::prefix('store')->group(function(){
             Route::get('/', [StoreController::class, 'index'])->name('admin.market.store.index');
-            Route::get('/add-to-store', [StoreController::class, 'addToStore'])->name('admin.market.store.add-to-store');
-            Route::post('/store', [StoreController::class, 'store'])->name('admin.market.store.store');
-            Route::get('/edit/{id}', [StoreController::class, 'edit'])->name('admin.market.store.edit');
-            Route::put('/update/{id}', [StoreController::class, 'update'])->name('admin.market.store.update');
-            Route::delete('/destroy/{id}', [StoreController::class, 'destroy'])->name('admin.market.store.destroy');
+            Route::get('/add-to-store/{product}', [StoreController::class, 'addToStore'])->name('admin.market.store.add-to-store');
+            Route::post('/store/{product}', [StoreController::class, 'store'])->name('admin.market.store.store');
+            Route::get('/edit/{product}', [StoreController::class, 'edit'])->name('admin.market.store.edit');
+            Route::put('/update/{product}', [StoreController::class, 'update'])->name('admin.market.store.update');
         });
 
 
