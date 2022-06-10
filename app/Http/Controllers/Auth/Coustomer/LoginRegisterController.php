@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers\Auth\Coustomer;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\Auth\Customer\loginRegisterRequest;
 use App\Models\Otp;
 use App\Models\User;
-use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Config;
+use App\Http\Services\Message\MessageSerivce;
+use App\Http\Services\Message\SMS\SmsService;
+use App\Http\Requests\Auth\Customer\LoginRegisterRequest;
 
 class LoginRegisterController extends Controller
 {
@@ -31,7 +34,7 @@ class LoginRegisterController extends Controller
         }
 
         //check id is mobile or not
-        elseif(preg_match('/^(\+98|98|0)9\d{9}$', $inputs['id'])){
+        elseif(preg_match('/^(\+98|98|0)9\d{9}$/', $inputs['id'])){
             $type = 0;  // 0 => mobile;
 
 
@@ -71,10 +74,20 @@ class LoginRegisterController extends Controller
         Otp::create($otpInputs);
 
         //send sms or email
+
         if($type == 0){
             //send sms
+            $smsService = new SmsService();
+            $smsService->setFrom(Config::get('sms.otp_from'));
+            $smsService->setTo(['0' . $user->mobile]);
+            $smsService->setText("مجموعه آمازون \n  کد تایید : $otpCode");
+            $smsService->setIsFlash(true);
+
+            $messagesService = new MessageSerivce($smsService);
 
         }
+
+        $messagesService->send();
 
     }
 }
