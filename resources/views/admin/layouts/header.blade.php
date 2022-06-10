@@ -27,7 +27,13 @@
             <section>
                     <span class="ml-2 ml-md-4 position-relative">
                         <span id="header-notification-toggle" class="pointer">
-                            <i class="far fa-bell"></i><sup class="badge badge-danger">4</sup>
+                            <i class="far fa-bell"></i>
+                            @if($notifications->count() !=0)
+                                <sup class="badge badge-danger">
+                                    {{$notifications->count()}}
+                                </sup>
+                            @endif
+
                         </span>
                     <section id="header-notification" class="header-notifictation rounded">
                         <section class="d-flex justify-content-between">
@@ -40,37 +46,18 @@
                         </section>
 
                         <ul class="list-group rounded px-0">
+                            @foreach($notifications as $notification)
                             <li class="list-group-item list-group-item-action">
                                 <section class="media">
-                                    <img class="notification-img" src="{{asset('/admin-assets/images/avatar-2.jpg')}}" alt="avatar">
                                     <section class="media-body pr-1">
-                                        <h5 class="notification-user">محمد هاشمی</h5>
-                                        <p class="notification-text">این یک متن تستی است</p>
-                                        <p class="notification-time">30 دقیقه پیش</p>
+                                        <p class="notification-time">
+                                            {{$notification['data']['message']}}
+                                        </p>
                                     </section>
                                 </section>
                             </li>
-                            <li class="list-group-item list-group-item-action">
-                                <section class="media">
-                                    <img class="notification-img" src="{{asset('/admin-assets/images/avatar-2.jpg')}}" alt="">
-                                    <section class="media-body pr-1">
-                                        <h5 class="notification-user">محمد هاشمی</h5>
-                                        <p class="notification-text">این یک متن تستی است</p>
-                                        <p class="notification-time">30 دقیقه پیش</p>
-                                    </section>
-                                </section>
-                            </li>
-                            <li class="list-group-item list-group-item-action">
-                                <section class="media">
-                                    <img class="notification-img" src="{{asset('/admin-assets/images/avatar-2.jpg')}}" alt="">
-                                    <section class="media-body pr-1">
-                                        <h5 class="notification-user">محمد هاشمی</h5>
-                                        <p class="notification-text">این یک متن تستی است</p>
-                                        <p class="notification-time">30 دقیقه پیش</p>
-                                    </section>
-                                </section>
-                            </li>
-                        </ul>
+                        @endforeach
+
                     </section>
                     </span>
                 <span class="ml-2 ml-md-4 position-relative">
@@ -99,7 +86,7 @@
                                             <section class="d-flex justify-content-between">
                                                 <h5 class="comment-user">{{$unseenComment->user->fullName}}</h5>
                                                 <span>
-                                                    {{$unseenComment->body}}
+                                                    {{$unseenComment->body }}
                                                     <i class="fas fa-circle text-success comment-user-status"></i>
                                                 </span>
                                             </section>

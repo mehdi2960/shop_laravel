@@ -6,3 +6,19 @@
 <script src="{{ asset('/admin-assets/sweetalert/sweetalert2.js') }}"></script>
 
 
+<script>
+    var notificationDropDown=document.getElementById('header-notification-toggle');
+
+    notificationDropDown.addEventListener('click',function (){
+        $.ajax({
+           type:"POST",
+           url:"/admin/notification/read-all",
+            data : {_token: "{{ csrf_token() }}" },
+            success : function(){
+                console.log('yes');
+            }
+        });
+    });
+</script>
+
+
