@@ -34,6 +34,7 @@ use App\Http\Controllers\Admin\User\PermissionController;
 use App\Http\Controllers\Admin\User\RoleController;
 use App\Http\Controllers\Admin\Content\CategoryController as ContentCategoryController;
 use App\Http\Controllers\Admin\Content\CommentController as ContentCommentController;
+use App\Http\Controllers\Auth\Coustomer\LoginRegisterController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -413,6 +414,12 @@ Route::prefix('admin')->namespace('Admin')->group(function (){
 
         //Notification Ajax
         Route::post('/notification/read-all', [NotificationController::class, 'readAll'])->name('admin.notification.readAll');
+});
+
+
+//login-register
+Route::namespace('Auth')->group(function (){
+    Route::get('/login-register',[LoginRegisterController::class,'loginRegisterForm'])->name('auth.customer.login-register-form');
 });
 
 Route::get('/',function (){
