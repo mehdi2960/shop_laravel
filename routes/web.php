@@ -413,5 +413,8 @@ Route::prefix('admin')->namespace('Admin')->group(function (){
 
         //Notification Ajax
         Route::post('/notification/read-all', [NotificationController::class, 'readAll'])->name('admin.notification.readAll');
-
 });
+
+Route::get('/',function (){
+    return view('customer.home');
+})->name('customer.home');
