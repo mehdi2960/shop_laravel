@@ -13,7 +13,8 @@ class BannerController extends Controller
     public function index()
     {
         $banners = Banner::orderBy('created_at', 'desc')->simplePaginate(15);
-        return view('admin.content.banner.index', compact('banners'));
+        $positions = Banner::$positions;
+        return view('admin.content.banner.index', compact('banners','positions'));
     }
 
     /**
@@ -23,7 +24,8 @@ class BannerController extends Controller
      */
     public function create()
     {
-        return view('admin.content.banner.create');
+        $positions = Banner::$positions;
+        return view('admin.content.banner.create',compact('positions'));
     }
 
     /**
@@ -39,7 +41,7 @@ class BannerController extends Controller
 
         if ($request->hasFile('image')) {
             $imageService->setExclusiveDirectory('images' . DIRECTORY_SEPARATOR . 'banner');
-            $result = $imageService->createIndexAndSave($request->file('image'));
+            $result = $imageService->save($request->file('image'));
             if ($result === false) {
                 return redirect()->route('admin.content.banner.index')->with('swal-error', 'آپلود تصویر با خطا مواجه شد');
             }
@@ -89,7 +91,7 @@ class BannerController extends Controller
                 $imageService->deleteDirectoryAndFiles($banner->image['directory']);
             }
             $imageService->setExclusiveDirectory('images' . DIRECTORY_SEPARATOR . 'banner');
-            $result = $imageService->createIndexAndSave($request->file('image'));
+            $result = $imageService->save($request->file('image'));
             if ($result === false) {
                 return redirect()->route('admin.content.banner.index')->with('swal-error', 'آپلود تصویر با خطا مواجه شد');
             }

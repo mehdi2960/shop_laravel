@@ -37,6 +37,7 @@ use App\Http\Controllers\Admin\User\RoleController;
 use App\Http\Controllers\Admin\Content\CategoryController as ContentCategoryController;
 use App\Http\Controllers\Admin\Content\CommentController as ContentCommentController;
 use App\Http\Controllers\Auth\Coustomer\LoginRegisterController;
+use App\Http\Controllers\Customer\HomeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -452,6 +453,4 @@ Route::namespace('Auth')->group(function () {
 //});
 
 
-Route::get('/', function () {
-    return view('customer.home');
-})->name('customer.home');
+Route::get('/', [HomeController::class,'index'])->name('customer.home');
