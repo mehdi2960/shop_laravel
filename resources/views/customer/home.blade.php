@@ -3,6 +3,7 @@
 
 @section('content')
 
+
     <!-- start slideshow -->
     <section class="container-xxl my-4">
         <section class="row">
@@ -23,6 +24,8 @@
         </section>
     </section>
     <!-- end slideshow -->
+
+
 
     <!-- start product lazy load -->
     <section class="mb-3">
