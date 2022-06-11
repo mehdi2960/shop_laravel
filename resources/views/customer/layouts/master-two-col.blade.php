@@ -6,24 +6,24 @@
 </head>
 <body>
 
-@include('customer.layouts.header')
+    @include('customer.layouts.header')
 
-<section class="container-xxl body-container">
-    @yield('customer.layouts.sidebar')
-</section>
+    <section class="container-xxl body-container">
+        @yield('customer.layouts.sidebar')
+    </section>
 
-<main id="main-body-one-col" class="main-body">
+    <main id="main-body-one-col" class="main-body">
 
     @yield('content')
 
-</main>
+    </main>
 
 
-@include('customer.layouts.footer')
+    @include('customer.layouts.footer')
 
 
 
-@include('customer.layouts.script')
-@yield('script')
+    @include('customer.layouts.script')
+    @yield('script')
 </body>
 </html>

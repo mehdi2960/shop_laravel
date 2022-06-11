@@ -6,6 +6,7 @@
 </head>
 <body>
 
+    @include('customer.layouts.header')
 
     <main id="main-body-one-col" class="main-body">
 
@@ -14,6 +15,7 @@
     </main>
 
 
+    @include('customer.layouts.footer')
 
 
 
