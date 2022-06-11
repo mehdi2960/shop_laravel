@@ -21,7 +21,7 @@
             <section class="col-md-4 ps-md-1 mt-2 mt-md-0">
                 <section class="mb-2">
                     @foreach($topBanners as $topBanner)
-                        <a href="{{ urldecode($topBanner->url) }}" class="d-block">
+                        <a href="{{ urldecode($topBanner->url) }}" class="d-block mb-2">
                             <img class="w-100 rounded-2" src="{{ asset($topBanner->image) }}" alt="{{$topBanner->title}}">
                         </a>
                     @endforeach
