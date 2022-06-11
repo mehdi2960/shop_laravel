@@ -419,12 +419,11 @@ Route::prefix('admin')->namespace('Admin')->group(function (){
 
 
 //login-register
-Route::namespace('Auth')->group(function (){
-    Route::get('/login-register',[LoginRegisterController::class,'loginRegisterForm'])->name('auth.customer.login-register-form');
-    Route::post('/login-register',[LoginRegisterController::class,'loginRegister'])->name('auth.customer.login-register');
-
-    Route::get('/login-confirm/{token}',[LoginRegisterController::class,'loginConfirmForm'])->name('auth.customer.login-confirm-form');
-    Route::post('/login-confirm/{token}',[LoginRegisterController::class,'loginConfirm'])->name('auth.customer.login-confirm');
+Route::namespace('Auth')->group(function () {
+    Route::get('login-register', [LoginRegisterController::class, 'loginRegisterForm'])->name('auth.customer.login-register-form');
+    Route::post('/login-register', [LoginRegisterController::class, 'loginRegister'])->name('auth.customer.login-register');
+    Route::get('login-confirm/{token}', [LoginRegisterController::class, 'loginConfirmForm'])->name('auth.customer.login-confirm-form');
+    Route::post('/login-confirm/{token}', [LoginRegisterController::class, 'loginConfirm'])->name('auth.customer.login-confirm');
 });
 
 
