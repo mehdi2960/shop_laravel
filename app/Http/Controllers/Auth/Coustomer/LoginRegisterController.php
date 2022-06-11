@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth\Coustomer;
 
+use App\Http\Services\Message\Email\EmailService;
 use App\Models\Otp;
 use App\Models\User;
 use Illuminate\Support\Str;
@@ -9,6 +10,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Config;
 use App\Http\Services\Message\MessageSerivce;
+//use App\Http\Services\Message\MessageService;
 use App\Http\Services\Message\SMS\SmsService;
 use App\Http\Requests\Auth\Customer\LoginRegisterRequest;
 
@@ -24,17 +26,14 @@ class LoginRegisterController extends Controller
         $inputs = $request->all();
 
         //check id is email or not
-        if(filter_var($inputs['id'], FILTER_VALIDATE_EMAIL))
-        {
+        if (filter_var($inputs['id'], FILTER_VALIDATE_EMAIL)) {
             $type = 1;  // 1 => email
             $user = User::where('email', $inputs['id'])->first();
-            if(empty($user)){
+            if (empty($user)) {
                 $newUser['email'] = $inputs['id'];
             }
-        }
-
-        //check id is mobile or not
-        elseif(preg_match('/^(\+98|98|0)9\d{9}$/', $inputs['id'])){
+        } //check id is mobile or not
+        elseif (preg_match('/^(\+98|98|0)9\d{9}$/', $inputs['id'])) {
             $type = 0;  // 0 => mobile;
 
 
@@ -44,17 +43,15 @@ class LoginRegisterController extends Controller
             $inputs['id'] = str_replace('+98', '', $inputs['id']);
 
             $user = User::where('mobile', $inputs['id'])->first();
-            if(empty($user)){
+            if (empty($user)) {
                 $newUser['mobile'] = $inputs['id'];
             }
-        }
-
-        else{
+        } else {
             $errorText = 'شناسه ورودی شما نه شماره موبایل است نه ایمیل';
             return redirect()->route('auth.customer.login-register-form')->withErrors(['id' => $errorText]);
         }
 
-        if(empty($user)){
+        if (empty($user)) {
             $newUser['password'] = '98355154';
             $newUser['activation'] = 1;
             $user = User::create($newUser);
@@ -75,7 +72,7 @@ class LoginRegisterController extends Controller
 
         //send sms or email
 
-        if($type == 0){
+        if ($type == 0) {
             //send sms
             $smsService = new SmsService();
             $smsService->setFrom(Config::get('sms.otp_from'));
@@ -87,8 +84,19 @@ class LoginRegisterController extends Controller
 
         }
 
-        elseif($type===1)
-        {
+        //send email
+        elseif($type === 1){
+            $emailService = new EmailService();
+            $details = [
+                'title' => 'ایمیل فعال سازی',
+                'body' => "$otpCode کد فعال سازی شما : "
+            ];
+            $emailService->setDetails($details);
+            $emailService->setFrom('noreply@example.com', 'example');
+            $emailService->setSubject('کد احراز هویت');
+            $emailService->setTo($inputs['id']);
+
+            $messagesService = new MessageSerivce($emailService);
 
         }
 
