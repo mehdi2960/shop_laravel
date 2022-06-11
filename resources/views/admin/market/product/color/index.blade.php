@@ -51,7 +51,7 @@
                                 <td>{{ number_format($color->price_increase) }}</td>
                                 <td class="width-8-rem text-left">
                                     <form class="d-inline"
-                                          action="{{ route('admin.market.color.destroy', ['product' => $product->id, 'productColor' => $color->id]) }}"
+                                          action="{{ route('admin.market.color.destroy', ['product' => $product->id, 'color' => $color->id]) }}"
                                           method="post">
                                         @csrf
                                         {{ method_field('delete') }}

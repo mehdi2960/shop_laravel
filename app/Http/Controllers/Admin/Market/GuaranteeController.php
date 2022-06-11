@@ -3,21 +3,21 @@
 namespace App\Http\Controllers\Admin\Market;
 
 use App\Http\Controllers\Controller;
-use App\Models\Market\Brand;
+use App\Models\Market\Guarantee;
 use App\Models\Market\Product;
-use App\Models\Market\ProductColor;
 use Illuminate\Http\Request;
 
-class ProductColorController extends Controller
+class GuaranteeController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
+     * @param Product $product
      * @return \Illuminate\Http\Response
      */
     public function index(Product $product)
     {
-        return view('admin.market.product.color.index',compact('product'));
+        return view('admin.market.product.guarantee.index', compact('product'));
     }
 
     /**
@@ -27,7 +27,7 @@ class ProductColorController extends Controller
      */
     public function create(Product $product)
     {
-        return view('admin.market.product.color.create',compact('product'));
+        return view('admin.market.product.guarantee.create', compact('product'));
     }
 
     /**
@@ -36,17 +36,16 @@ class ProductColorController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request,Product $product)
+    public function store(Request $request, Product $product)
     {
         $validated = $request->validate([
-            'color_name' => 'required|max:120|min:2|regex:/^[ا-یa-zA-Z0-9\-۰-۹ء-ي., ]+$/u',
-            'color' => 'required|max:120',
-            'price_increase' => 'required|numeric',
+            'name'              =>  'required',
+            'price_increase'    =>  'required|numeric'
         ]);
         $inputs = $request->all();
         $inputs['product_id'] = $product->id;
-        $color = ProductColor::create($inputs);
-        return redirect()->route('admin.market.color.index', $product->id)->with('swal-success', 'رنگ شما با موفقیت ثبت شد');
+        $guarantee = Guarantee::create($inputs);
+        return redirect()->route('admin.market.guarantee.index', $product->id)->with('swal-success', 'گارانتی شما با موفقیت ثبت شد');
     }
 
     /**
@@ -86,13 +85,13 @@ class ProductColorController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param Product $product
+     * @param Guarantee $guarantee
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Product $product,ProductColor $productColor)
+    public function destroy(Product $product, Guarantee $guarantee)
     {
-        $productColor->delete();
-        return redirect()->route('admin.market.color.index',$product->id)->with('swal-success', 'برند جدید شما با موفقیت ثبت شد');
-
+        $guarantee->delete();
+        return back();
     }
 }

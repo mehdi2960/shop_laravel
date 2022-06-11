@@ -6,14 +6,21 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class ProductColor extends Model
+class Guarantee extends Model
 {
     use HasFactory, SoftDeletes;
 
-    protected $fillable = ['color_name','color', 'product_id', 'price_increase', 'sold_number', 'status', 'frozen_number', 'marketable_number'];
+    protected $table="quarantees";
+
+    protected $fillable = [
+        'name',
+        'product_id',
+        'price_increase',
+        'status'
+    ];
 
     public function product()
     {
-        return $this->belongsTo(Product::class);
+        return $this->belongsTo(Product::class, 'product_id');
     }
 }
