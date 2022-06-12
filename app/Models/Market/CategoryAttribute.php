@@ -10,6 +10,8 @@ class CategoryAttribute extends Model
 {
     use HasFactory, SoftDeletes;
 
+    protected $table="category_attributes";
+
     protected $fillable = ['name', 'type', 'unit', 'category_id'];
 
 
