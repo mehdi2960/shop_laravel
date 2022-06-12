@@ -86,12 +86,13 @@ class ProductColorController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param Product $product
+     * @param ProductColor $color
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Product $product,ProductColor $productColor)
+    public function destroy(Product $product,ProductColor $color)
     {
-        $productColor->delete();
+        $color->delete();
         return redirect()->route('admin.market.color.index',$product->id)->with('swal-success', 'برند جدید شما با موفقیت ثبت شد');
 
     }

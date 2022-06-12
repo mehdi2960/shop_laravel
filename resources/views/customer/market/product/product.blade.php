@@ -28,16 +28,19 @@
                         <section class="col-md-4">
                             <section class="content-wrapper bg-white p-3 rounded-2 mb-4">
                                 <section class="product-gallery">
+                                    @php
+                                        $images=$product->images()->get();
+                                    @endphp
                                     <section class="product-gallery-selected-image mb-3">
-                                        <img src="assets/images/single-product/1.jpg" alt="">
+                                        <img src="{{asset($images->first()->image['indexArray']['medium'])}}" alt="">
                                     </section>
+
                                     <section class="product-gallery-thumbs">
-                                        <img class="product-gallery-thumb" src="assets/images/single-product/1.jpg" alt="" data-input="assets/images/single-product/1.jpg">
-                                        <img class="product-gallery-thumb" src="assets/images/single-product/2.jpg" alt="" data-input="assets/images/single-product/2.jpg">
-                                        <img class="product-gallery-thumb" src="assets/images/single-product/3.jpg" alt="" data-input="assets/images/single-product/3.jpg">
-                                        <img class="product-gallery-thumb" src="assets/images/single-product/4.jpg" alt="" data-input="assets/images/single-product/4.jpg">
-                                        <img class="product-gallery-thumb" src="assets/images/single-product/5.jpg" alt="" data-input="assets/images/single-product/5.jpg">
+                                        @foreach($images as $key=>$image)
+                                            <img class="product-gallery-thumb" src="{{asset($image->image['indexArray']['medium'])}}" alt="{{asset($image->image['indexArray']['medium']) . '-'. ($key+1)}}" data-input="{{asset($image->image['indexArray']['medium'])}}">
+                                        @endforeach
                                     </section>
+
                                 </section>
                             </section>
                         </section>
@@ -52,7 +55,7 @@
                                 <section class="content-header mb-3">
                                     <section class="d-flex justify-content-between align-items-center">
                                         <h2 class="content-header-title content-header-title-small">
-                                            کتاب اثر مرکب نوشته دارن هاردی
+                                            {{$product->name}}
                                         </h2>
                                         <section class="content-header-link">
                                             <!--<a href="#">مشاهده همه</a>-->
@@ -60,14 +63,34 @@
                                     </section>
                                 </section>
                                 <section class="product-info">
+                                    @php
+                                        $colors=$product->colors()->get();
+                                    @endphp
 
-                                    <p><span>رنگ : قهوه ای</span></p>
+                                    @if($colors->count() !=0)
+                                    <p><span>رنگ : {{$colors->first()->color_name}}</span></p>
                                     <p>
-                                        <span style="background-color: #523e02;" class="product-info-colors me-1" data-bs-toggle="tooltip" data-bs-placement="bottom" title="قهوه ای تیره"></span>
-                                        <span style="background-color: #0c4128;" class="product-info-colors me-1" data-bs-toggle="tooltip" data-bs-placement="bottom" title="سبز یشمی"></span>
-                                        <span style="background-color: #fd7e14;" class="product-info-colors me-1" data-bs-toggle="tooltip" data-bs-placement="bottom" title="نارنجی پرتقالی"></span>
+                                        @foreach($colors as $key=>$color)
+                                            <span style="background-color: {{$color->color ?? '#ffffff'}};" class="product-info-colors me-1"
+                                                  data-bs-toggle="tooltip"
+                                                  data-bs-placement="bottom"
+                                                  title="{{$color->color_name}}">
+                                            </span>
+                                        @endforeach
                                     </p>
-                                    <p><i class="fa fa-shield-alt cart-product-selected-warranty me-1"></i> <span> گارانتی اصالت و سلامت فیزیکی کالا</span></p>
+                                    @endif
+
+                                    @php
+                                        $guarantees=$product->guarantees()->get();
+                                    @endphp
+                                    @if($guarantees->count() !=0)
+                                        @foreach($guarantees as $key=>$guarantee)
+                                        <p>
+                                            <i class="fa fa-shield-alt cart-product-selected-warranty me-1"></i>
+                                            <span>{{$guarantee->name}}</span>
+                                        </p>
+                                        @endforeach
+                                    @endif
                                     <p><i class="fa fa-store-alt cart-product-selected-store me-1"></i> <span>کالا موجود در انبار</span></p>
                                     <p><a class="btn btn-light  btn-sm text-decoration-none" href="#"><i class="fa fa-heart text-danger"></i> افزودن به علاقه مندی</a></p>
                                     <section>
@@ -80,6 +103,7 @@
                                     <p class="mb-3 mt-5">
                                         <i class="fa fa-info-circle me-1"></i>کاربر گرامی  خرید شما هنوز نهایی نشده است. برای ثبت سفارش و تکمیل خرید باید ابتدا آدرس خود را انتخاب کنید و سپس نحوه ارسال را انتخاب کنید. نحوه ارسال انتخابی شما محاسبه و به این مبلغ اضافه شده خواهد شد. و در نهایت پرداخت این سفارش صورت میگیرد. پس از ثبت سفارش کالا بر اساس نحوه ارسال که شما انتخاب کرده اید کالا برای شما در مدت زمان مذکور ارسال می گردد.
                                     </p>
+
                                 </section>
                             </section>
 
