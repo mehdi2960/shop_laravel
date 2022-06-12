@@ -31,4 +31,9 @@ class ProductController extends Controller
         Comment::create($inputs);
         return back();
     }
+
+    public function addToFavorite(Product $product)
+    {
+
+    }
 }

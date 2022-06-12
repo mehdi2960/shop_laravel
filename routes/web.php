@@ -466,5 +466,6 @@ Route::get('/', [HomeController::class,'index'])->name('customer.home');
 Route::namespace('Market')->group(function () {
     Route::get('/product/{product:slug}', [CustomerProductController::class,'product'])->name('customer.market.product');
     Route::post('/add-comment/product/{product:slug}', [CustomerProductController::class,'addComment'])->name('customer.market.add-comment');
+    Route::get('/add-to-favorite/product/{product:slug}', [CustomerProductController::class,'addToFavorite'])->name('customer.market.add-to-favorite');
 
 });
