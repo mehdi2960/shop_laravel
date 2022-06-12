@@ -57,15 +57,41 @@
                                         <section class="lazyload-item-wrapper">
                                             <section class="product">
                                                 {{-- <section class="product-add-to-cart"><a href="#" data-bs-toggle="tooltip" data-bs-placement="left" title="افزودن به سبد خرید"><i class="fa fa-cart-plus"></i></a></section> --}}
+                                                @guest
+                                                    <section class="product-add-to-favorite">
+                                                        <button class="btn btn-light btn-sm text-decoration-none"
+                                                                data-url="{{ route('customer.market.add-to-favorite', $mostVisitedProduct) }}"
+                                                                data-bs-toggle="tooltip"
+                                                                data-bs-placement="left"
+                                                                title="اضافه از علاقه مندی">
+                                                            <i class="fa fa-heart"></i>
+                                                        </button>
+                                                    </section>
+                                                @endguest
 
-                                                 <section class="product-add-to-favorite">
-                                                     <button class="btn btn-light btn-sm  text-decoration-none add_to_favorite"
-                                                             data-bs-toggle="tooltip"
-                                                             data-bs-placement="left"
-                                                             title="افزودن به علاقه مندی">
-                                                         <i class="fa fa-heart text-dark"></i>
-                                                     </button>
-                                                 </section>
+                                                @auth
+                                                    @if ($mostVisitedProduct->user->contains(auth()->user()->id))
+                                                        <section class="product-add-to-favorite">
+                                                            <button class="btn btn-light btn-sm text-decoration-none"
+                                                                    data-url="{{ route('customer.market.add-to-favorite', $mostVisitedProduct) }}"
+                                                                    data-bs-toggle="tooltip"
+                                                                    data-bs-placement="left"
+                                                                    title="حذف از علاقه مندی">
+                                                                <i class="fa fa-heart text-danger"></i>
+                                                            </button>
+                                                        </section>
+                                                    @else
+                                                        <section class="product-add-to-favorite">
+                                                            <button class="btn btn-light btn-sm text-decoration-none"
+                                                                    data-url="{{ route('customer.market.add-to-favorite', $mostVisitedProduct) }}"
+                                                                    data-bs-toggle="tooltip"
+                                                                    data-bs-placement="left"
+                                                                    title="اضافه به علاقه مندی">
+                                                                <i class="fa fa-heart"></i>
+                                                            </button>
+                                                        </section>
+                                                    @endif
+                                                @endauth
 
                                                 <a class="product-link" href="{{route('customer.market.product',$mostVisitedProduct)}}">
                                                     <section class="product-image">
@@ -231,13 +257,53 @@
         </section>
     </section>
     <!-- end brand part-->
+
+    {{--Toast--}}
+    <section class="position-fixed p-4 flex-row-reverse" style="z-index: 909999999; left: 0; top: 3rem; width: 26rem; max-width: 80%;">
+        <section class="toast" data-delay="7000">
+            <section class="toast-body py-3 d-flex text-dark bg-info">
+                <strong class="ml-auto">
+                    برای افزودن کالا به لیست علاقه مندی ها باید ابتدا وارد حساب کاربری خود شوید
+                    <br>
+                    <a href="{{ route('auth.customer.login-register-form') }}" class="text-dark">
+                        ثبت نام / ورود
+                    </a>
+                </strong>
+                <button type="button" class="ml-2 mb-1 close btn btn-danger" data-dismiss="toast" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </section>
+        </section>
+    </section>
 @endsection
 
 @section('script')
 
     <script>
-        $('.add_to_favorite').click(function() {
-            alert('hi')
+        $('.product-add-to-favorite button').click(function() {
+            var url = $(this).attr('data-url');
+            var element = $(this);
+            $.ajax({
+                url : url,
+                success : function(result){
+                    if(result.status == 1)
+                    {
+                        $(element).children().first().addClass('text-danger');
+                        $(element).attr('data-original-title', 'حذف از علاقه مندی ها');
+                        $(element).attr('data-bs-original-title', 'حذف از علاقه مندی ها');
+                    }
+                    else if(result.status == 2)
+                    {
+                        $(element).children().first().removeClass('text-danger')
+                        $(element).attr('data-original-title', 'افزودن از علاقه مندی ها');
+                        $(element).attr('data-bs-original-title', 'افزودن از علاقه مندی ها');
+                    }
+                    else if(result.status == 3)
+                    {
+                        $('.toast').toast('show');
+                    }
+                }
+            })
         })
     </script>
 
