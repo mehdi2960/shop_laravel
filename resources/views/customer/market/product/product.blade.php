@@ -105,7 +105,7 @@
                                         </p>
 
                                     @endif
-                                    
+
                                     <p>
                                         @if($product->marketable_number > 0)
                                             <i class="fa fa-store-alt cart-product-selected-store me-1"></i> <span>کالا موجود در انبار</span>

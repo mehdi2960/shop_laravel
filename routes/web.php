@@ -39,6 +39,7 @@ use App\Http\Controllers\Admin\Content\CategoryController as ContentCategoryCont
 use App\Http\Controllers\Admin\Content\CommentController as ContentCommentController;
 use App\Http\Controllers\Auth\Coustomer\LoginRegisterController;
 use App\Http\Controllers\Customer\HomeController;
+use App\Http\Controllers\Customer\SalesProcess\CartController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -463,9 +464,19 @@ Route::namespace('Auth')->group(function () {
 
 Route::get('/', [HomeController::class,'index'])->name('customer.home');
 
+
 Route::namespace('Market')->group(function () {
     Route::get('/product/{product:slug}', [CustomerProductController::class,'product'])->name('customer.market.product');
     Route::post('/add-comment/product/{product:slug}', [CustomerProductController::class,'addComment'])->name('customer.market.add-comment');
     Route::get('/add-to-favorite/product/{product:slug}', [CustomerProductController::class,'addToFavorite'])->name('customer.market.add-to-favorite');
+
+});
+
+
+Route::namespace('SalesProcess')->group(function () {
+    Route::get('/cart', [CartController::class,'cart'])->name('customer.sales.process.cart');
+    Route::post('/cart', [CartController::class,'updateCart'])->name('customer.sales.process.update-cart');
+    Route::post('/add-to-cart/{product:slug}', [CartController::class,'addToCart'])->name('customer.sales.process.add-to-cart');
+    Route::post('/remove-from-cart/{cartItem}', [CartController::class,'removeFromToCart'])->name('customer.sales.process.remove-from-cart');
 
 });
