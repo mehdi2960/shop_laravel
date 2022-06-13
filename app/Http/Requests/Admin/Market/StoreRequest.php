@@ -26,7 +26,7 @@ class StoreRequest extends FormRequest
         return [
             'receiver' => 'required|max:120|min:2|regex:/^[ا-یa-zA-Z0-9\-۰-۹ء-ي., ]+$/u',
             'deliverer' => 'required|max:120|min:2|regex:/^[ا-یa-zA-Z0-9\-۰-۹ء-ي., ]+$/u',
-            'description' => 'required|max:520|min:2|regex:/^[ا-یa-zA-Z0-9\-۰-۹ء-ي., ]+$/u',
+            'description' => 'required|max:520|min:2',
             'marketable_number' => 'required|numeric',
         ];
     }

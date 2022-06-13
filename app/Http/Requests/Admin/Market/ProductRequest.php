@@ -26,13 +26,13 @@ class ProductRequest extends FormRequest
 
         if($this->isMethod('post')){
             return [
-                'name' => 'required|max:120|min:2|regex:/^[ا-یa-zA-Z0-9\-۰-۹ء-ي., ]+$/u',
+                'name' => 'required|max:120|min:2',
                 'introduction' => 'required|max:1000|min:5',
                 'weight' => 'required|max:1000|min:1|numeric',
                 'length' => 'required|max:1000|min:1|numeric',
                 'width' => 'required|max:1000|min:1|numeric',
                 'height' => 'required|max:1000|min:1|numeric',
-                'price' => 'required|numeric',
+                'price' => 'required',
                 'image' => 'required|image|mimes:png,jpg,jpeg,gif',
                 'status' => 'required|numeric|in:0,1',
                 'marketable' => 'required|numeric|in:0,1',

@@ -98,7 +98,7 @@
                                                         <img class="" src="{{ asset($mostVisitedProduct->image['indexArray']['medium']) }}" alt="{{ $mostVisitedProduct->name }}">
                                                     </section>
                                                     <section class="product-colors"></section>
-                                                    <section class="product-name"><h3>{{ Str::limit($mostVisitedProduct->name, 10) }}</h3></section>
+                                                    <section class="product-name"><h3>{{ Str::limit($mostVisitedProduct->name, 30) }}</h3></section>
                                                     <section class="product-price-wrapper">
                                                         <section class="product-discount">
                                                             {{-- <span class="product-old-price">6,895,000 </span> --}}

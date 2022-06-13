@@ -48,7 +48,7 @@ class StoreController extends Controller
         $product->marketable_number += $request->marketable_number;
         $product->save();
         Log::info("receiver => {$request->receiver}, deliverer => {$request->deliverer}, description => {$request->description}, add => {$request->marketable_number}");
-        return redirect()->route('admin.market.store.index')->with('swal-success', 'مجودی جدید با موفقیت ثبت شد');
+        return redirect()->route('admin.market.store.index')->with('swal-success', 'موجودی جدید با موفقیت ثبت شد');
     }
 
     /**
