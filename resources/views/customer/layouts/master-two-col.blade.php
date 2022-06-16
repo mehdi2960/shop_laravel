@@ -7,7 +7,7 @@
 <body>
 
     @include('customer.layouts.header')
-
+    @include('admin.alerts.alert-section')
     <section class="container-xxl body-container">
         @yield('customer.layouts.sidebar')
     </section>

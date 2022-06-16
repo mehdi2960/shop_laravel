@@ -1,15 +1,12 @@
-
 <!-- start header -->
 <header class="header mb-4">
-
-
     <!-- start top-header logo, searchbox and cart -->
     <section class="top-header">
         <section class="container-xxl ">
             <section class="d-md-flex justify-content-md-between align-items-md-center py-3">
 
                 <section class="d-flex justify-content-between align-items-center d-md-block">
-                    <a class="text-decoration-none" href="index.html"><img src="assets/images/logo/8.png" alt="logo"></a>
+                    <a class="text-decoration-none" href="/"><img src="{{asset('/customer-assets/images/logo/8.png')}}" alt="logo"></a>
                     <button class="btn btn-link text-dark d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
                         <i class="fa fa-bars me-1"></i>
                     </button>
@@ -73,13 +70,13 @@
                                 <section class="header-cart-dropdown-body">
 
                                     <section class="header-cart-dropdown-body-item d-flex justify-content-start align-items-center">
-                                        <img class="flex-shrink-1" src="assets/images/products/1.jpg" alt="">
+                                        <img class="flex-shrink-1" src="{{asset('/customer-assets/images/products/1.jpg')}}" alt="">
                                         <section class="w-100 text-truncate"><a class="text-decoration-none text-dark" href="#">کتاب اثر مرکب اثر دارن هاردی انتشارات معیار علم</a></section>
                                         <section class="flex-shrink-1"><a class="text-muted text-decoration-none p-1" href="#"><i class="fa fa-trash-alt"></i></a></section>
                                     </section>
 
                                     <section class="header-cart-dropdown-body-item d-flex justify-content-start align-items-center">
-                                        <img class="flex-shrink-1" src="assets/images/products/2.jpg" alt="">
+                                        <img class="flex-shrink-1" src="{{asset('/customer-assets/images/products/2.jpg')}}" alt="">
                                         <section class="w-100 text-truncate"><a class="text-decoration-none text-dark" href="#">دستگاه آبمیوه گیری دنویر با کد 1016</a></section>
                                         <section class="flex-shrink-1"><a class="text-muted text-decoration-none p-1" href="#"><i class="fa fa-trash-alt"></i></a></section>
                                     </section>

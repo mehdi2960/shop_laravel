@@ -62,7 +62,7 @@ class CartController extends Controller
 
             CartItem::create($inputs);
 
-            return back();
+            return back()->with('alert-section-success','محصول مورد نظر با موفقت به سبد حرید اضافه شد.');
 
         }
         else{

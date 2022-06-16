@@ -17,6 +17,7 @@
     </section>
 </section>
 @include('admin.layouts.script')
+@include('sweet::alert')
 @yield('script')
 </body>
 </html>

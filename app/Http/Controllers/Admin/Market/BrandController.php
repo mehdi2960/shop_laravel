@@ -49,11 +49,14 @@ class BrandController extends Controller
         }
         if($result === false)
         {
-            return redirect()->route('admin.market.brand.index')->with('swal-error', 'آپلود تصویر با خطا مواجه شد');
+            alert()->error('آپلود تصویر با خطا مواجه شد');
+            return redirect()->route('admin.market.brand.index');
         }
         $inputs['logo'] = $result;
         Brand::create($inputs);
-        return redirect()->route('admin.market.brand.index')->with('swal-success', 'برند جدید شما با موفقیت ثبت شد');
+
+        alert()->success('برند جدید شما با موفقیت ثبت شد','باتشکر');
+        return redirect()->route('admin.market.brand.index');
     }
 
     /**
@@ -113,7 +116,8 @@ class BrandController extends Controller
     public function destroy(Brand $brand)
     {
         $brand->delete();
-        return redirect()->route('admin.market.brand.index')->with('swal-success', 'برند شما حذف شد');
+        alert()->error('برند شما حذف شد');
+        return redirect()->route('admin.market.brand.index');
     }
 
     public function status(Brand $brand){
