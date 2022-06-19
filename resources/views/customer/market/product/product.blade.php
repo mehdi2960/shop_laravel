@@ -71,7 +71,7 @@
                                     </section>
                                 </section>
                                 <section class="product-info">
-                                    <form id="add_to_cart" action="{{route('customer.sales.process.add-to-cart',$product)}}" method="post" class="product-info">
+                                    <form id="add_to_cart" action="{{route('customer.sales-process.add-to-cart',$product)}}" method="post" class="product-info">
                                         @csrf
 
 
@@ -120,7 +120,11 @@
 
                                     @guest
                                         <section class="product-add-to-favorite position-relative" style="top: 0">
-                                            <button class="btn btn-light btn-sm text-decoration-none" data-url="{{ route('customer.market.add-to-favorite', $product) }}" data-bs-toggle="tooltip" data-bs-placement="left" title="اضافه از علاقه مندی">
+                                            <button type="button" class="btn btn-light btn-sm text-decoration-none"
+                                                    data-url="{{ route('customer.market.add-to-favorite', $product) }}"
+                                                    data-bs-toggle="tooltip"
+                                                    data-bs-placement="left"
+                                                    title="اضافه از علاقه مندی">
                                                 <i class="fa fa-heart"></i>
                                             </button>
                                         </section>
@@ -128,13 +132,21 @@
                                     @auth
                                         @if ($product->user->contains(auth()->user()->id))
                                             <section class="product-add-to-favorite position-relative" style="top: 0">
-                                                <button class="btn btn-light btn-sm text-decoration-none" data-url="{{ route('customer.market.add-to-favorite', $product) }}" data-bs-toggle="tooltip" data-bs-placement="left" title="حذف از علاقه مندی">
+                                                <button type="button" class="btn btn-light btn-sm text-decoration-none"
+                                                        data-url="{{ route('customer.market.add-to-favorite', $product) }}"
+                                                        data-bs-toggle="tooltip"
+                                                        data-bs-placement="left"
+                                                        title="حذف از علاقه مندی">
                                                     <i class="fa fa-heart text-danger"></i>
                                                 </button>
                                             </section>
                                         @else
                                             <section class="product-add-to-favorite position-relative" style="top: 0">
-                                                <button class="btn btn-light btn-sm text-decoration-none" data-url="{{ route('customer.market.add-to-favorite', $product) }}" data-bs-toggle="tooltip" data-bs-placement="left" title="اضافه به علاقه مندی">
+                                                <button type="button" class="btn btn-light btn-sm text-decoration-none"
+                                                        data-url="{{ route('customer.market.add-to-favorite', $product) }}"
+                                                        data-bs-toggle="tooltip"
+                                                        data-bs-placement="left"
+                                                        title="اضافه به علاقه مندی">
                                                     <i class="fa fa-heart"></i>
                                                 </button>
                                             </section>
@@ -562,7 +574,6 @@
 
     </script>
 
-
     <script>
         $('.product-add-to-favorite button').click(function() {
             var url = $(this).attr('data-url');
@@ -589,5 +600,24 @@
                 }
             })
         })
+    </script>
+
+    <script>
+        //start product introduction, features and comment
+        $(document).ready(function() {
+            var s = $("#introduction-features-comments");
+            var pos = s.position();
+            $(window).scroll(function() {
+                var windowpos = $(window).scrollTop();
+
+                if (windowpos >= pos.top) {
+                    s.addClass("stick");
+                } else {
+                    s.removeClass("stick");
+                }
+            });
+        });
+        //end product introduction, features and comment
+
     </script>
 @endsection

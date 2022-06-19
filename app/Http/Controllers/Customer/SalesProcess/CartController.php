@@ -12,7 +12,15 @@ class CartController extends Controller
 {
     public function cart()
     {
-
+        if (Auth::check()) {
+            $cartItems = CartItem::where('user_id', Auth::user()->id)->get();
+            $relatedProducts = Product::all();
+            return view('customer.sales-process.cart', compact('cartItems', 'relatedProducts'));
+        }
+        else
+        {
+            return redirect()->route('auth.customer.login-register-form');
+        }
     }
 
     public function updateCart()
@@ -22,8 +30,7 @@ class CartController extends Controller
 
     public function addToCart(Product $product, Request $request)
     {
-        if(Auth::check())
-        {
+        if (Auth::check()) {
             $request->validate([
                 'color' => 'nullable|exists:product_colors,id',
                 'guarantee' => 'nullable|exists:quarantees,id',
@@ -32,22 +39,17 @@ class CartController extends Controller
 
             $cartItems = CartItem::where('product_id', $product->id)->where('user_id', auth()->user()->id)->get();
 
-            if(!isset($request->color))
-            {
+            if (!isset($request->color)) {
                 $request->color = null;
             }
 
-            if(!isset($request->guarantee))
-            {
+            if (!isset($request->guarantee)) {
                 $request->guarantee = null;
             }
 
-            foreach($cartItems as $cartItem)
-            {
-                if($cartItem->color_id == $request->color && $cartItem->guarantee_id == $request->guarantee)
-                {
-                    if($cartItem->number != $request->number)
-                    {
+            foreach ($cartItems as $cartItem) {
+                if ($cartItem->color_id == $request->color && $cartItem->guarantee_id == $request->guarantee) {
+                    if ($cartItem->number != $request->number) {
                         $cartItem->update(['number' => $request->number]);
                     }
                     return back();
@@ -57,15 +59,14 @@ class CartController extends Controller
             $inputs = [];
             $inputs['color_id'] = $request->color;
             $inputs['guarantee_id'] = $request->guarantee;
-            $inputs['user_id'] =  auth()->user()->id;
-            $inputs['product_id'] =  $product->id;
+            $inputs['user_id'] = auth()->user()->id;
+            $inputs['product_id'] = $product->id;
 
             CartItem::create($inputs);
 
-            return back()->with('alert-section-success','محصول مورد نظر با موفقت به سبد حرید اضافه شد.');
+            return back()->with('alert-section-success', 'محصول مورد نظر با موفقت به سبد حرید اضافه شد.');
 
-        }
-        else{
+        } else {
             return redirect()->route('auth.customer.login-register-form');
         }
 
