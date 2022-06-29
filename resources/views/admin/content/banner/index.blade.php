@@ -90,7 +90,6 @@
 @section('script')
 
 <script type="text/javascript">
-
     function changeStatus(id){
         var element = $("#" + id)
         var url = element.attr('data-url')

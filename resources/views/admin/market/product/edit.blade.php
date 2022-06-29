@@ -42,12 +42,12 @@
                                 <input type="text" name="name" value="{{ old('name', $product->name) }}" class="form-control form-control-sm">
                             </div>
                             @error('name')
-                            <span class="alert_required bg-danger text-white p-1 rounded" role="alert">
-                                <strong>
-                                    {{ $message }}
-                                </strong>
-                            </span>
-                        @enderror
+                                <span class="alert_required bg-danger text-white p-1 rounded" role="alert">
+                                    <strong>
+                                        {{ $message }}
+                                    </strong>
+                                </span>
+                            @enderror
                         </section>
 
                         <section class="col-12 col-md-6">
@@ -107,8 +107,8 @@
                         </section>
 
                         <section class="row">
-                            @php
-                                $number = 1;
+                                @php
+                                    $number = 1;
                                 @endphp
                             @foreach ($product->image['indexArray'] as $key => $value )
                             <section class="col-md-{{ 6 / $number }}">
@@ -232,8 +232,8 @@
                             <div class="form-group">
                                 <label for="marketable">قابل فروش بودن</label>
                                 <select name="marketable" class="form-control form-control-sm" id="marketable">
-                                    <option value="0" @if (old('marketable', $product->status) == 0) selected @endif>غیرفعال</option>
-                                    <option value="1" @if (old('marketable', $product->status) == 1) selected @endif>فعال</option>
+                                    <option value="0" @if (old('marketable', $product->marketable) == 0) selected @endif>غیرفعال</option>
+                                    <option value="1" @if (old('marketable', $product->marketable) == 1) selected @endif>فعال</option>
                                 </select>
                             </div>
                             @error('marketable')
@@ -250,9 +250,7 @@
                                 <label for="tags">تگ ها</label>
                                 <input type="hidden" class="form-control form-control-sm" name="tags" id="tags"
                                     value="{{ old('tags', $product->tags) }}">
-                                <select class="select2 form-control form-control-sm" id="select_tags" multiple>
-
-                                </select>
+                                <select class="select2 form-control form-control-sm" id="select_tags" multiple></select>
                             </div>
                             @error('tags')
                                 <span class="alert_required bg-danger text-white p-1 rounded" role="alert">
@@ -282,21 +280,20 @@
                         <section class="col-12 border-top border-bottom py-3 mb-3">
 
                             @foreach ($product->metas as $meta)
+                                <section class="row">
 
-                            <section class="row">
+                                    <section class="col-6 col-md-3">
+                                        <div class="form-group">
+                                            <input type="text" name="meta_key[{{ $meta->id }}]" class="form-control form-control-sm" value="{{ $meta->meta_key }}">
+                                        </div>
+                                    </section>
 
-                                <section class="col-6 col-md-3">
-                                    <div class="form-group">
-                                        <input type="text" name="meta_key[{{ $meta->id }}]" class="form-control form-control-sm" value="{{ $meta->meta_key }}">
-                                    </div>
+                                    <section class="col-6 col-md-3">
+                                        <div class="form-group">
+                                            <input type="text" name="meta_value[]" class="form-control form-control-sm" value="{{ $meta->meta_value }}">
+                                        </div>
+                                    </section>
                                 </section>
-
-                                <section class="col-6 col-md-3">
-                                    <div class="form-group">
-                                        <input type="text" name="meta_value[]" class="form-control form-control-sm" value="{{ $meta->meta_value }}">
-                                    </div>
-                                </section>
-                            </section>
                             @endforeach
                         </section>
                         <section class="col-12">

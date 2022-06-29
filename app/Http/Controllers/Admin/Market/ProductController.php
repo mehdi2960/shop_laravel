@@ -40,7 +40,8 @@ class ProductController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param ProductRequest $request
+     * @param ImageService $imageService
      * @return \Illuminate\Http\Response
      */
     public function store(ProductRequest $request, ImageService $imageService)
@@ -91,7 +92,7 @@ class ProductController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param Product $product
      * @return \Illuminate\Http\Response
      */
     public function edit(Product $product)

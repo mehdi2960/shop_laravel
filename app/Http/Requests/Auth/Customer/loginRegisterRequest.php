@@ -29,6 +29,7 @@ class loginRegisterRequest extends FormRequest
         {
             return [
                 'id' => 'required|min:11|max:64|regex:/^[a-zA-Z0-9_.@\+]*$/',
+                'g-recaptcha-response' => 'required|captcha'
             ];
         }
         elseif($route->getName() == 'auth.customer.login-confirm')
@@ -41,7 +42,8 @@ class loginRegisterRequest extends FormRequest
 
     public function attributes(){
         return [
-            'id' => 'ایمیل یا شماره موبایل'
+            'id' => 'ایمیل یا شماره موبایل',
+            'g-recaptcha-response'=>'من ربات نیستمر وفعال کنید'
         ];
     }
 }

@@ -56,9 +56,12 @@
                             <td>{{$postCategory->tags}}</td>
                             <td>
                                 <label>
-                                    <input id="{{ $postCategory->id }}" onchange="changeStatus({{ $postCategory->id }})" data-url="{{ route('admin.content.category.status', $postCategory->id) }}" type="checkbox" @if ($postCategory->status === 1)
-                                    checked
-                                        @endif>
+                                    <input
+                                           id="{{ $postCategory->id }}"
+                                           onchange="changeStatus({{ $postCategory->id }})"
+                                           data-url="{{ route('admin.content.category.status', $postCategory->id) }}"
+                                           type="checkbox"
+                                           @if ($postCategory->status === 1) checked @endif>
                                 </label>
                             </td>
                             <td class="width-16-rem text-left d-flex justify-content-center">

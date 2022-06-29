@@ -213,6 +213,7 @@ Route::prefix('admin')->namespace('Admin')->group(function () {
 
     });
 
+    //content
     Route::prefix('content')->namespace('Content')->group(function () {
 
         //category
@@ -296,6 +297,7 @@ Route::prefix('admin')->namespace('Admin')->group(function () {
         });
     });
 
+    //user
     Route::prefix('user')->namespace('User')->group(function () {
 
         //admin-user
@@ -347,6 +349,7 @@ Route::prefix('admin')->namespace('Admin')->group(function () {
 
     });
 
+    //notify
     Route::prefix('notify')->namespace('Notify')->group(function () {
 
         //email
@@ -386,6 +389,7 @@ Route::prefix('admin')->namespace('Admin')->group(function () {
         });
     });
 
+    //ticket
     Route::prefix('ticket')->namespace('Ticket')->group(function () {
 
         //category
@@ -430,6 +434,7 @@ Route::prefix('admin')->namespace('Admin')->group(function () {
 
     });
 
+    //setting
     Route::prefix('setting')->namespace('Setting')->group(function () {
         Route::get('/', [SettingController::class, 'index'])->name('admin.setting.index');
         Route::get('/edit/{setting}', [SettingController::class, 'edit'])->name('admin.setting.edit');
@@ -469,11 +474,11 @@ Route::namespace('Market')->group(function () {
     Route::get('/product/{product:slug}', [CustomerProductController::class,'product'])->name('customer.market.product');
     Route::post('/add-comment/product/{product:slug}', [CustomerProductController::class,'addComment'])->name('customer.market.add-comment');
     Route::get('/add-to-favorite/product/{product:slug}', [CustomerProductController::class,'addToFavorite'])->name('customer.market.add-to-favorite');
-
 });
 
-
+//SalesProcess
 Route::namespace('SalesProcess')->group(function () {
+
     Route::get('/cart', [CartController::class,'cart'])->name('customer.sales-process.cart');
     Route::post('/cart', [CartController::class,'updateCart'])->name('customer.sales-process.update-cart');
     Route::post('/add-to-cart/{product:slug}', [CartController::class,'addToCart'])->name('customer.sales-process.add-to-cart');

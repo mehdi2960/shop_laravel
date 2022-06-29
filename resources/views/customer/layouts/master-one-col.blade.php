@@ -14,12 +14,10 @@
 
     </main>
 
-
     @include('customer.layouts.footer')
 
-
-
     @include('customer.layouts.script')
+
     @yield('script')
 </body>
 </html>

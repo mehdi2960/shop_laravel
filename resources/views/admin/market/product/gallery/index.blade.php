@@ -79,5 +79,4 @@
 
     @include('admin.alerts.sweetalert.delete-confirm', ['className' => 'delete'])
 
-
 @endsection

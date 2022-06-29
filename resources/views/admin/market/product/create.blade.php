@@ -183,17 +183,17 @@
                                 </div>
                                 @error('introduction')
                                 <span class="alert_required bg-danger text-white p-1 rounded" role="alert">
-                                <strong>
-                                    {{ $message }}
-                                </strong>
-                            </span>
+                                    <strong>
+                                        {{ $message }}
+                                    </strong>
+                                </span>
                                 @enderror
                             </section>
 
                             <section class="col-12 col-md-6 my-2">
                                 <div class="form-group">
                                     <label for="status">وضعیت</label>
-                                    <select name="status" id="" class="form-control form-control-sm" id="status">
+                                    <select name="status" class="form-control form-control-sm" id="status">
                                         <option value="0" @if(old('status') == 0) selected @endif>غیرفعال</option>
                                         <option value="1" @if(old('status') == 1) selected @endif>فعال</option>
                                     </select>
@@ -210,7 +210,7 @@
                             <section class="col-12 col-md-6 my-2">
                                 <div class="form-group">
                                     <label for="marketable">قابل فروش بودن</label>
-                                    <select name="marketable" id="" class="form-control form-control-sm" id="marketable">
+                                    <select name="marketable" class="form-control form-control-sm" id="marketable">
                                         <option value="0" @if(old('marketable') == 0) selected @endif>غیرفعال</option>
                                         <option value="1" @if(old('marketable') == 1) selected @endif>فعال</option>
                                     </select>
@@ -228,9 +228,7 @@
                                 <div class="form-group">
                                     <label for="tags">تگ ها</label>
                                     <input type="hidden" class="form-control form-control-sm"  name="tags" id="tags" value="{{ old('tags') }}">
-                                    <select class="select2 form-control form-control-sm" id="select_tags" multiple>
-
-                                    </select>
+                                    <select class="select2 form-control form-control-sm" id="select_tags" multiple> </select>
                                 </div>
                                 @error('tags')
                                 <span class="alert_required bg-danger text-white p-1 rounded" role="alert">

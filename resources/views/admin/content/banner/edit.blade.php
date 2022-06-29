@@ -66,7 +66,6 @@
                             </section>
 
 
-
                             <section class="col-12 col-md-6 my-2">
                                 <div class="form-group">
                                     <label for="status">وضعیت</label>

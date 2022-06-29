@@ -39,6 +39,7 @@
                             <th>نام کالا</th>
                             <th> تصویر کالا</th>
                             <th> قیمت</th>
+                            <th>وزن </th>
                             <th>دسته </th>
                             <th class="max-width-16-rem text-center"><i class="fa fa-cogs"></i> تنظیمات</th>
                         </tr>
@@ -53,7 +54,8 @@
                                     <img src="{{ asset($product->image['indexArray'][$product->image['currentImage']] ) }}" alt="" width="100" height="50">
                                 </td>
                                 <td>{{ $product->price }} تومان</td>
-                                <td>کالا الکترونیکی</td>
+                                <td>{{ $product->weight }} کیلو</td>
+                                <td>{{$product->category->name}}</td>
                                 <td class="width-8-rem text-left">
                                     <a href="{{ route('admin.market.gallery.index', $product->id) }}" class="dropdown-item text-right"><i class="fa fa-images"></i> گالری</a>
                                     <a href="{{ route('admin.market.color.index', $product->id) }}" class="dropdown-item text-right"><i class="fa fa-list-ul"></i>مدیریت رنگ ها</a>

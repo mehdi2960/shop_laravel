@@ -34,8 +34,6 @@
                     @csrf
                     <section class="row">
 
-
-
                         <section class="col-12 col-md-6">
                             <div class="form-group">
                                 <label for="name">نام گارانتی</label>
