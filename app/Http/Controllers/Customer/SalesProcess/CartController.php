@@ -16,9 +16,7 @@ class CartController extends Controller
             $cartItems = CartItem::where('user_id', Auth::user()->id)->get();
             $relatedProducts = Product::all();
             return view('customer.sales-process.cart', compact('cartItems', 'relatedProducts'));
-        }
-        else
-        {
+        } else {
             return redirect()->route('auth.customer.login-register-form');
         }
     }
@@ -74,7 +72,7 @@ class CartController extends Controller
 
     public function removeFromToCart(CartItem $cartItem)
     {
-        if ($cartItem->user_id===Auth::user()->id){
+        if ($cartItem->user_id === Auth::user()->id) {
             $cartItem->delete();
         }
 

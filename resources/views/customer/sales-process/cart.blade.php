@@ -4,7 +4,6 @@
     <title>سبد خرید شما</title>
 @endsection
 
-
 @section('content')
 
     <!-- start cart -->
@@ -80,12 +79,9 @@
                                         </section>
                                     </section>
                                 @endforeach
-
-
-
                             </form>
-
                         </section>
+
                         <section class="col-md-3">
                             <section class="content-wrapper bg-white p-3 rounded-2 cart-total-price">
                                 <section class="d-flex justify-content-between align-items-center">
@@ -114,10 +110,10 @@
 
                             </section>
                         </section>
+
                     </section>
                 </section>
             </section>
-
         </section>
     </section>
     <!-- end cart -->
