@@ -30,8 +30,6 @@
     </section>
     <!-- end slideshow -->
 
-
-
     <!-- start product lazy load -->
     <section class="mb-3">
         <section class="container-xxl" >

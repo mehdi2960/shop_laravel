@@ -56,11 +56,11 @@
                         </section>
 
                         <section class="header-cart d-inline ps-3 border-start position-relative">
-                            <a class="btn btn-link position-relative text-dark header-cart-link" href="{{route('customer.sales-process.cart')}}">
-                                <i class="fa fa-shopping-cart"></i>
-                                <span style="top: 80%;"
-                                    class="position-absolute start-0 translate-middle badge rounded-pill bg-danger">2</span>
-                            </a>
+{{--                            <a class="btn btn-link position-relative text-dark header-cart-link" href="{{route('customer.sales-process.cart')}}">--}}
+{{--                                <i class="fa fa-shopping-cart"></i>--}}
+{{--                                <span style="top: 80%;"--}}
+{{--                                    class="position-absolute start-0 translate-middle badge rounded-pill bg-danger">2</span>--}}
+{{--                            </a>--}}
                             @auth
                                 <section class="header-cart d-inline ps-3 border-start position-relative">
                                     <a class="btn btn-link position-relative text-dark header-cart-link" href="{{ route('customer.sales-process.cart') }}">
@@ -83,7 +83,7 @@
                                                     $totalProductPrice += $cartItem->cartItemProductPrice();
                                                     $totalDiscount += $cartItem->cartItemProductDiscount();
                                                 @endphp
-                                            
+
                                                 <section class="header-cart-dropdown-body-item d-flex justify-content-start align-items-center">
                                                     <img class="flex-shrink-1" src="{{ asset($cartItem->product->image['indexArray']['medium']) }}" alt="">
                                                     <section class="w-100 text-truncate"><a class="text-decoration-none text-dark" href="{{ route('customer.market.product', $cartItem->product) }}">{{ $cartItem->product->name }}</a></section>

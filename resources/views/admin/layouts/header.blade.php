@@ -100,14 +100,14 @@
                     </section>
 
                     </span>
-                <span class="ml-3 ml-md-5 position-relative">
+                     <span class="ml-3 ml-md-5 position-relative">
                         <span id="header-profile-toggle" class="pointer">
                             <img class="header-avatar" src="{{asset('/admin-assets/images/avatar-2.jpg')}}" alt="">
-                            <span class="header-username">کامران محمدی</span>
-                    <i class="fas fa-angle-down"></i>
-                    </span>
-                    <section id="header-profile" class="header-profile rounded">
-                        <section class="list-group rounded">
+                            <span class="header-username">مهدی موسوی</span>
+                            <i class="fas fa-angle-down"></i>
+                         </span>
+                          <section id="header-profile" class="header-profile rounded">
+                             <section class="list-group rounded">
                             <a href="#" class="list-group-item list-group-item-action header-profile-link">
                                 <i class="fas fa-cog"></i>تنظیمات
                             </a>
@@ -124,7 +124,7 @@
                                 <i class="fas fa-sign-out-alt"></i>خروج
                             </a>
                         </section>
-                    </section>
+                          </section>
                     </span>
             </section>
         </section>
