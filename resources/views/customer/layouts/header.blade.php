@@ -55,16 +55,11 @@
                             @endguest
                         </section>
 
-                        <section class="header-cart d-inline ps-3 border-start position-relative">
-{{--                            <a class="btn btn-link position-relative text-dark header-cart-link" href="{{route('customer.sales-process.cart')}}">--}}
-{{--                                <i class="fa fa-shopping-cart"></i>--}}
-{{--                                <span style="top: 80%;"--}}
-{{--                                    class="position-absolute start-0 translate-middle badge rounded-pill bg-danger">2</span>--}}
-{{--                            </a>--}}
                             @auth
                                 <section class="header-cart d-inline ps-3 border-start position-relative">
                                     <a class="btn btn-link position-relative text-dark header-cart-link" href="{{ route('customer.sales-process.cart') }}">
-                                        <i class="fa fa-shopping-cart"></i> <span style="top: 80%;" class="position-absolute start-0 translate-middle badge rounded-pill bg-danger">2</span>
+                                        <i class="fa fa-shopping-cart"></i>
+                                        <span style="top: 80%;" class="position-absolute start-0 translate-middle badge rounded-pill bg-danger">{{$cartItems->count() }}</span>
                                     </a>
                                     <section class="header-cart-dropdown">
                                         <section class="border-bottom d-flex justify-content-between p-2">
@@ -93,13 +88,17 @@
                                             @endforeach
                                         </section>
                                         <section class="header-cart-dropdown-footer border-top d-flex justify-content-between align-items-center p-2">
-                                            <section class=""><section>مبلغ قابل پرداخت</section><section> {{ priceFormat($totalProductPrice - $totalDiscount) }}تومان</section></section>
-                                            <section class=""><a class="btn btn-danger btn-sm d-block" href="cart.html">ثبت سفارش</a></section>
+                                            <section class=""><section>مبلغ قابل پرداخت</section>
+                                                <section> {{ priceFormat($totalProductPrice - $totalDiscount) }}تومان</section>
+                                            </section>
+                                            <section class="">
+                                                <a class="btn btn-danger btn-sm d-block" href="#">ثبت سفارش</a>
+                                            </section>
                                         </section>
                                     </section>
                                 </section>
                             @endauth
-                        </section>
+
                 </section>
             </section>
         </section>
