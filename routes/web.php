@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\AdminDashboardController;
+
 //use App\Http\Controllers\Admin\Content\ContentCategoryController;
 use App\Http\Controllers\Admin\Content\BannerController;
 use App\Http\Controllers\Admin\Content\FAQController;
@@ -469,30 +470,33 @@ Route::namespace('Auth')->group(function () {
 //});
 
 
-Route::get('/', [HomeController::class,'index'])->name('customer.home');
+Route::get('/', [HomeController::class, 'index'])->name('customer.home');
 
 
 Route::namespace('Market')->group(function () {
-    Route::get('/product/{product:slug}', [CustomerProductController::class,'product'])->name('customer.market.product');
-    Route::post('/add-comment/product/{product:slug}', [CustomerProductController::class,'addComment'])->name('customer.market.add-comment');
-    Route::get('/add-to-favorite/product/{product:slug}', [CustomerProductController::class,'addToFavorite'])->name('customer.market.add-to-favorite');
+    Route::get('/product/{product:slug}', [CustomerProductController::class, 'product'])->name('customer.market.product');
+    Route::post('/add-comment/product/{product:slug}', [CustomerProductController::class, 'addComment'])->name('customer.market.add-comment');
+    Route::get('/add-to-favorite/product/{product:slug}', [CustomerProductController::class, 'addToFavorite'])->name('customer.market.add-to-favorite');
 });
 
 //SalesProcess
 Route::namespace('SalesProcess')->group(function () {
 
     //Cart
-    Route::get('/cart', [CartController::class,'cart'])->name('customer.sales-process.cart');
-    Route::post('/cart', [CartController::class,'updateCart'])->name('customer.sales-process.update-cart');
-    Route::post('/add-to-cart/{product:slug}', [CartController::class,'addToCart'])->name('customer.sales-process.add-to-cart');
-    Route::get('/remove-from-cart/{cartItem}', [CartController::class,'removeFromToCart'])->name('customer.sales-process.remove-from-cart');
+    Route::get('/cart', [CartController::class, 'cart'])->name('customer.sales-process.cart');
+    Route::post('/cart', [CartController::class, 'updateCart'])->name('customer.sales-process.update-cart');
+    Route::post('/add-to-cart/{product:slug}', [CartController::class, 'addToCart'])->name('customer.sales-process.add-to-cart');
+    Route::get('/remove-from-cart/{cartItem}', [CartController::class, 'removeFromToCart'])->name('customer.sales-process.remove-from-cart');
 
     //profile completion
-    Route::get('/profile-completion', [ProfileCompelitionController::class,'profileCompletion'])->name('customer.sales-process.profile-completion');
-    Route::post('/profile-completion-update', [ProfileCompelitionController::class,'update'])->name('customer.sales-profile-completion-update');
+    Route::get('/profile-completion', [ProfileCompelitionController::class, 'profileCompletion'])->name('customer.sales-process.profile-completion');
+    Route::post('/profile-completion-update', [ProfileCompelitionController::class, 'update'])->name('customer.sales-profile-completion-update');
 
     //Address
-    Route::get('/address-and-delivery', [AddressController::class,'addressAndDelivery'])->name('customer.sales-process.address-and-delivery');
-    Route::post('/add-address', [AddressController::class,'addAddress'])->name('customer.sales-process.add-address');
+    Route::middleware('profile.completion')->group(function () {
+        Route::get('/address-and-delivery', [AddressController::class, 'addressAndDelivery'])->name('customer.sales-process.address-and-delivery');
+        Route::post('/add-address', [AddressController::class, 'addAddress'])->name('customer.sales-process.add-address');
+
+    });
 
 });
