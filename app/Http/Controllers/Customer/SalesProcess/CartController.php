@@ -23,18 +23,15 @@ class CartController extends Controller
 
     public function updateCart(Request $request)
     {
-        $inputs=$request->all();
-        $cartItems=CartItem::query()->where('user_id',auth()->user()->id)->get();
-
-        foreach ($cartItems as $cartItem){
-            if (isset($inputs['number'][$cartItem->id]))
+        $inputs = $request->all();
+        $cartItems = CartItem::where('user_id', Auth::user()->id)->get();
+        foreach($cartItems as $cartItem){
+            if(isset($inputs['number'][$cartItem->id]))
             {
-                $cartItem->update(['number'=>$inputs['number'][$cartItem->id]]);
+                $cartItem->update(['number' => $inputs['number'][$cartItem->id]]);
             }
         }
-
         return redirect()->route('customer.sales-process.address-and-delivery');
-
     }
 
     public function addToCart(Product $product, Request $request)
@@ -48,16 +45,20 @@ class CartController extends Controller
 
             $cartItems = CartItem::where('product_id', $product->id)->where('user_id', auth()->user()->id)->get();
 
-            if (!isset($request->color)) {
+            if (!isset($request->color))
+            {
                 $request->color = null;
             }
 
-            if (!isset($request->guarantee)) {
+            if (!isset($request->guarantee))
+            {
                 $request->guarantee = null;
             }
 
-            foreach ($cartItems as $cartItem) {
-                if ($cartItem->color_id == $request->color && $cartItem->guarantee_id == $request->guarantee) {
+            foreach ($cartItems as $cartItem)
+            {
+                if ($cartItem->color_id == $request->color && $cartItem->guarantee_id == $request->guarantee)
+                {
                     if ($cartItem->number != $request->number) {
                         $cartItem->update(['number' => $request->number]);
                     }

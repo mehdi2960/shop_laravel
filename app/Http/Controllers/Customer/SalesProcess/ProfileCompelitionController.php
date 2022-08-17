@@ -29,6 +29,8 @@ class ProfileCompelitionController extends Controller
         $user=Auth::user();
         $inputs=$request->all();
         $user->update($inputs);
+        return redirect()->route('customer.sales-process.address-and-delivery');
+
 
     }
 }

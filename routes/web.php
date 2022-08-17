@@ -42,6 +42,7 @@ use App\Http\Controllers\Auth\Coustomer\LoginRegisterController;
 use App\Http\Controllers\Customer\HomeController;
 use App\Http\Controllers\Customer\SalesProcess\AddressController;
 use App\Http\Controllers\Customer\SalesProcess\CartController;
+//use App\Http\Controllers\Customer\SalesProcess\ProfileCompelitionController;
 use App\Http\Controllers\Customer\SalesProcess\ProfileCompelitionController;
 use Illuminate\Support\Facades\Route;
 
@@ -488,15 +489,18 @@ Route::namespace('SalesProcess')->group(function () {
     Route::post('/add-to-cart/{product:slug}', [CartController::class, 'addToCart'])->name('customer.sales-process.add-to-cart');
     Route::get('/remove-from-cart/{cartItem}', [CartController::class, 'removeFromToCart'])->name('customer.sales-process.remove-from-cart');
 
+
     //profile completion
     Route::get('/profile-completion', [ProfileCompelitionController::class, 'profileCompletion'])->name('customer.sales-process.profile-completion');
-    Route::post('/profile-completion-update', [ProfileCompelitionController::class, 'update'])->name('customer.sales-profile-completion-update');
+    Route::post('/profile-completion-update', [ProfileCompelitionController::class, 'update'])->name('customer.sales-process.profile-completion-update');
+
 
     //Address
     Route::middleware('profile.completion')->group(function () {
+        //address
         Route::get('/address-and-delivery', [AddressController::class, 'addressAndDelivery'])->name('customer.sales-process.address-and-delivery');
         Route::post('/add-address', [AddressController::class, 'addAddress'])->name('customer.sales-process.add-address');
-
+        Route::get('/get-cities/{province}', [AddressController::class, 'getCities'])->name('customer.sales-process.get-cities');
     });
 
 });
