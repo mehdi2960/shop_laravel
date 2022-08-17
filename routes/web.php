@@ -470,7 +470,6 @@ Route::namespace('Auth')->group(function () {
 //
 //});
 
-
 Route::get('/', [HomeController::class, 'index'])->name('customer.home');
 
 
