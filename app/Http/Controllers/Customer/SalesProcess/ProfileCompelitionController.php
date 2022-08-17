@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Customer\SalesProcess;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Customer\SalesProces\ProfileCompletionRequest;
 use App\Models\Market\CartItem;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -16,21 +17,11 @@ class ProfileCompelitionController extends Controller
         return view('customer.sales-process.profile-completion',compact('user','cartItems'));
     }
 
-    public function update(Request $request)
+    public function update(ProfileCompletionRequest $request)
     {
-        $request->validate([
-            'first_name'=>'sometimes|required',
-            'last_name'=>'sometimes|required',
-            'mobile'=>'sometimes|required|min:10|max:13|unique:users,mobile',
-            'national_code'=>'required',
-            'email'=>'nullable|unique:users,email',
-        ]);
-
         $user=Auth::user();
         $inputs=$request->all();
         $user->update($inputs);
         return redirect()->route('customer.sales-process.address-and-delivery');
-
-
     }
 }
