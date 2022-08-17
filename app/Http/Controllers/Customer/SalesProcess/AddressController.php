@@ -21,7 +21,17 @@ class AddressController extends Controller
             return redirect()->route('customer.sales-process.cart');
         }
 
-        return view('customer.sales-process.address-and-delivery', compact('cartItems','provinces'));
+        return view('customer.sales-process.address-and-delivery', compact('cartItems', 'provinces'));
 
+    }
+
+    public function getCities(Province $province)
+    {
+        $cities=$province->cities;
+        if ($cities !=null){
+            return response()->json(['status'=>true,'cities'=>$cities]);
+        }else{
+            return response()->json(['status'=>false,'cities'=>null]);
+        }
     }
 }
