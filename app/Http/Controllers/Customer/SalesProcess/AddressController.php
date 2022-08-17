@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Customer\SalesProcess;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Customer\SalesProces\StoreAddressRequest;
+use App\Models\Address;
 use App\Models\Market\CartItem;
 use App\Models\Province;
 use Illuminate\Http\Request;
@@ -27,11 +29,19 @@ class AddressController extends Controller
 
     public function getCities(Province $province)
     {
-        $cities=$province->cities;
-        if ($cities !=null){
-            return response()->json(['status'=>true,'cities'=>$cities]);
-        }else{
-            return response()->json(['status'=>false,'cities'=>null]);
+        $cities = $province->cities;
+        if ($cities != null) {
+            return response()->json(['status' => true, 'cities' => $cities]);
+        } else {
+            return response()->json(['status' => false, 'cities' => null]);
         }
+    }
+
+    public function addAddress(StoreAddressRequest $request)
+    {
+        $inputs = $request->all();
+        $inputs['user_id'] = auth()->user()->id;
+        $address=Address::create($inputs);
+        return redirect()->back();
     }
 }

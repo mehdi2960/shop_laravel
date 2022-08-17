@@ -194,5 +194,10 @@ return [
         'otp'                       => 'رمز یکبار مصرف',
         'color'                     => 'رنگ',
         'national_code'             => 'کد ملی',
+        'province_id'               => 'استان',
+        'city_id'                   => 'شهر',
+        'no'                        => 'پلاک',
+        'recipient_first_name'      => 'نام گیرنده',
+        'recipient_last_name'       => 'نام خانوادگی گیرنده',
     ],
 ];
