@@ -61,9 +61,9 @@
                                 <section class="address-select">
 
                                     @foreach (auth()->user()->addresses as $address)
-                                        <input type="radio" name="address" value="1" id="a1" />
+                                        <input type="radio" form="myForm" name="address_id" value="{{$address->id}}" id="a-{{$address->id}}" />
                                         <!--checked="checked"-->
-                                        <label for="a1" class="address-wrapper mb-2 p-2">
+                                        <label for="a-{{$address->id}}" class="address-wrapper mb-2 p-2">
                                             <section class="mb-2">
                                                 <i class="fa fa-map-marker-alt mx-1"></i>
                                                 آدرس : {{ $address->address ?? '-' }}
@@ -170,10 +170,8 @@
 
                                                     </section>
                                                     <section class="modal-footer py-1">
-                                                        <button type="submit" class="btn btn-sm btn-primary">ثبت
-                                                            آدرس</button>
-                                                        <button type="button" class="btn btn-sm btn-danger"
-                                                                data-bs-dismiss="modal">بستن</button>
+                                                        <button type="submit" class="btn btn-sm btn-primary">ویرایش  آدرس</button>
+                                                        <button type="button" class="btn btn-sm btn-danger" data-bs-dismiss="modal">بستن</button>
                                                     </section>
                                                     </form>
 
@@ -320,41 +318,31 @@
                                 </section>
                                 <section class="delivery-select ">
 
-                                    <section class="address-alert alert alert-primary d-flex align-items-center p-2"
-                                             role="alert">
+                                    <section class="address-alert alert alert-primary d-flex align-items-center p-2" role="alert">
                                         <i class="fa fa-info-circle flex-shrink-0 me-2"></i>
                                         <secrion>
                                             نحوه ارسال کالا را انتخاب کنید. هنگام انتخاب لطفا مدت زمان ارسال را در نظر
                                             بگیرید.
                                         </secrion>
                                     </section>
-
-                                    <input type="radio" name="delivery_type" value="1" id="d1" />
-                                    <label for="d1" class="col-12 col-md-4 delivery-wrapper mb-2 pt-2">
-                                        <section class="mb-2">
-                                            <i class="fa fa-shipping-fast mx-1"></i>
-                                            پست پیشتاز
-                                        </section>
-                                        <section class="mb-2">
-                                            <i class="fa fa-calendar-alt mx-1"></i>
-                                            تامین کالا از 4 روز کاری آینده
-                                        </section>
-                                    </label>
-
-                                    <input type="radio" name="delivery_type" value="2" id="d2" />
-                                    <label for="d2" class="col-12 col-md-4 delivery-wrapper mb-2 pt-2">
-                                        <section class="mb-2">
-                                            <i class="fa fa-shipping-fast mx-1"></i>
-                                            تیپاکس
-                                        </section>
-                                        <section class="mb-2">
-                                            <i class="fa fa-calendar-alt mx-1"></i>
-                                            تامین کالا از 2 روز کاری آینده
-                                        </section>
-                                    </label>
+                                  @foreach($deliveryMethods as $deliveryMethod)
+                                        <input form="myForm" type="radio" name="delivery_id" value="{{$deliveryMethod->id}}" id="d-{{$deliveryMethod->id}}" />
+                                        <label for="d-{{$deliveryMethod->id}}" class="col-12 col-md-4 delivery-wrapper mb-2 pt-2">
+                                            <section class="mb-2">
+                                                <i class="fa fa-shipping-fast mx-1"></i>
+                                                {{$deliveryMethod->name}}
+                                            </section>
+                                            <section class="mb-2">
+                                                <i class="fa fa-calendar-alt mx-1"></i>
+                                                تامین کالا از {{$deliveryMethod->delivery_time}} {{$deliveryMethod->delivery_time_unit}} کاری آینده
+                                            </section>
+                                        </label>
+                                    @endforeach
                                 </section>
                             </section>
                         </section>
+
+                            <form action="{{route('customer.sales-process.payment')}}" id="myForm"></form>
                         <section class="col-md-3">
                             <section class="content-wrapper bg-white p-3 rounded-2 cart-total-price">
                                 @php
@@ -407,10 +395,10 @@
 
                             </section>
                         </section>
+
                     </section>
                 </section>
             </section>
-
         </section>
     </section>
     <!-- end cart -->

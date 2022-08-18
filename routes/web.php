@@ -42,6 +42,7 @@ use App\Http\Controllers\Auth\Coustomer\LoginRegisterController;
 use App\Http\Controllers\Customer\HomeController;
 use App\Http\Controllers\Customer\SalesProcess\AddressController;
 use App\Http\Controllers\Customer\SalesProcess\CartController;
+use App\Http\Controllers\Customer\SalesProcess\PaymentController as CustomerPaymentController;
 //use App\Http\Controllers\Customer\SalesProcess\ProfileCompelitionController;
 use App\Http\Controllers\Customer\SalesProcess\ProfileCompelitionController;
 use Illuminate\Support\Facades\Route;
@@ -501,6 +502,10 @@ Route::namespace('SalesProcess')->group(function () {
         Route::post('/add-address', [AddressController::class, 'addAddress'])->name('customer.sales-process.add-address');
         Route::put('/update-address/{address}', [AddressController::class, 'updateAddress'])->name('customer.sales-process.update-address');
         Route::get('/get-cities/{province}', [AddressController::class, 'getCities'])->name('customer.sales-process.get-cities');
+
+        //Payment
+        Route::get('/payment', [CustomerPaymentController::class, 'payment'])->name('customer.sales-process.payment');
+
     });
 
 });
