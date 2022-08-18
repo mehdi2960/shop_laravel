@@ -22,12 +22,12 @@ class AddressController extends Controller
         $user = Auth::user();
         $provinces = Province::all();
         $cartItems = CartItem::where('user_id', $user->id)->get();
-        $deliveryMethods=Delivery::where('status',1)->get();
+        $deliveryMethods = Delivery::where('status', 1)->get();
         if (empty(CartItem::where('user_id', $user->id)->count())) {
             return redirect()->route('customer.sales-process.cart');
         }
 
-        return view('customer.sales-process.address-and-delivery', compact('cartItems', 'provinces','deliveryMethods'));
+        return view('customer.sales-process.address-and-delivery', compact('cartItems', 'provinces', 'deliveryMethods'));
 
     }
 
@@ -47,11 +47,11 @@ class AddressController extends Controller
         $inputs['user_id'] = auth()->user()->id;
         $inputs['postal_code'] = convertArabicToEnglish($request->postal_code);
         $inputs['postal_code'] = convertPersianToEnglish($inputs['postal_code']);
-        $address=Address::create($inputs);
+        $address = Address::create($inputs);
         return redirect()->back();
     }
 
-    public function updateAddress(Address $address,UpdateAddressRequest $request)
+    public function updateAddress(Address $address, UpdateAddressRequest $request)
     {
         $inputs = $request->all();
         $inputs['user_id'] = auth()->user()->id;
@@ -63,11 +63,27 @@ class AddressController extends Controller
 
     public function chooseAddressAndDelivery(ChooseAddressAndDeliveryRequest $request)
     {
-        $user=auth()->user();
-        $inputs=$request->all();
-        $inputs['user_id']=$user->id;
-        $order=Order::query()->updateOrCreate(
-            ['user_id'=>$user->id,'order_status'=>0],
+        $user = auth()->user();
+        $inputs = $request->all();
+
+        //calc price
+        $cartItems = CartItem::where('user_id', $user->id)->get();
+        $totalProductPrice = 0;
+        $totalDiscount = 0;
+        $totalFinalPrice = 0;
+        $totalFinalDiscountPriceWithNumbers = 0;
+        foreach ($cartItems as $cartItem) {
+            $totalProductPrice += $cartItem->cartItemProductPrice();
+            $totalDiscount += $cartItem->cartItemProductDiscount();
+            $totalFinalPrice += $cartItem->cartItemFinalPrice();
+            $totalFinalDiscountPriceWithNumbers += $cartItem->cartItemFinalDiscount();
+        }
+        $inputs['user_id'] = $user->id;
+        $inputs['order_final_amount'] = $totalFinalPrice;
+        $inputs['order_discount_amount'] = $totalFinalDiscountPriceWithNumbers;
+
+        $order = Order::query()->updateOrCreate(
+            ['user_id' => $user->id, 'order_status' => 0],
             $inputs
         );
         return redirect()->route('customer.sales-process.payment');
