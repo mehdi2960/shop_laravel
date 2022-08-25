@@ -23,6 +23,7 @@ class AddressController extends Controller
         $provinces = Province::all();
         $cartItems = CartItem::where('user_id', $user->id)->get();
         $deliveryMethods = Delivery::where('status', 1)->get();
+
         if (empty(CartItem::where('user_id', $user->id)->count())) {
             return redirect()->route('customer.sales-process.cart');
         }

@@ -14,8 +14,13 @@ class CartController extends Controller
     {
         if (Auth::check()) {
             $cartItems = CartItem::where('user_id', Auth::user()->id)->get();
-            $relatedProducts = Product::all();
-            return view('customer.sales-process.cart', compact('cartItems', 'relatedProducts'));
+            if ($cartItems->coun() > 0)
+            {
+                $relatedProducts = Product::all();
+                return view('customer.sales-process.cart', compact('cartItems', 'relatedProducts'));
+            }else{
+                return redirect()->back();
+            }
         } else {
             return redirect()->route('auth.customer.login-register-form');
         }
@@ -25,9 +30,8 @@ class CartController extends Controller
     {
         $inputs = $request->all();
         $cartItems = CartItem::where('user_id', Auth::user()->id)->get();
-        foreach($cartItems as $cartItem){
-            if(isset($inputs['number'][$cartItem->id]))
-            {
+        foreach ($cartItems as $cartItem) {
+            if (isset($inputs['number'][$cartItem->id])) {
                 $cartItem->update(['number' => $inputs['number'][$cartItem->id]]);
             }
         }
@@ -45,20 +49,16 @@ class CartController extends Controller
 
             $cartItems = CartItem::where('product_id', $product->id)->where('user_id', auth()->user()->id)->get();
 
-            if (!isset($request->color))
-            {
+            if (!isset($request->color)) {
                 $request->color = null;
             }
 
-            if (!isset($request->guarantee))
-            {
+            if (!isset($request->guarantee)) {
                 $request->guarantee = null;
             }
 
-            foreach ($cartItems as $cartItem)
-            {
-                if ($cartItem->color_id == $request->color && $cartItem->guarantee_id == $request->guarantee)
-                {
+            foreach ($cartItems as $cartItem) {
+                if ($cartItem->color_id == $request->color && $cartItem->guarantee_id == $request->guarantee) {
                     if ($cartItem->number != $request->number) {
                         $cartItem->update(['number' => $request->number]);
                     }
