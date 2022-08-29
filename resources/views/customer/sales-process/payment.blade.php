@@ -25,6 +25,13 @@
                     </section>
 
                     <section class="row mt-4">
+                        @if ($errors->any())
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        @endif
                         <section class="col-md-9">
                             <section class="content-wrapper bg-white p-3 rounded-2 mb-4">
 
@@ -48,6 +55,7 @@
                                 </section>
 
                                 <section class="row">
+
                                     <section class="col-md-5">
                                             <form action="{{route('customer.sales-process.copan-discount')}}" method="post">
                                                 @csrf

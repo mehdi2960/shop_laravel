@@ -4,6 +4,7 @@
     <title>سبد خرید شما</title>
 @endsection
 
+
 @section('content')
 
     <!-- start cart -->
@@ -32,7 +33,7 @@
                                     $totalDiscount = 0;
                                 @endphp
 
-                                @foreach($cartItems as $cartItem)
+                                @foreach ($cartItems as $cartItem)
                                     @php
                                         $totalProductPrice += $cartItem->cartItemProductPrice();
                                         $totalDiscount += $cartItem->cartItemProductDiscount();
@@ -62,14 +63,10 @@
                                             <section>
                                                 <section class="cart-product-number d-inline-block ">
                                                     <button class="cart-number cart-number-down" type="button">-</button>
-                                                    <input class="number" name="number[{{$cartItem->id}}]" data-product-price={{ $cartItem->cartItemProductPrice() }} data-product-discount={{ $cartItem->cartItemProductDiscount() }}
-                                                        type="number" min="1" max="5" step="1" value="{{ $cartItem->number }}" readonly="readonly">
+                                                    <input class="number" name="number[{{ $cartItem->id }}]" data-product-price={{ $cartItem->cartItemProductPrice() }} data-product-discount={{ $cartItem->cartItemProductDiscount() }}  type="number" min="1" max="5" step="1" value="{{ $cartItem->number }}" readonly="readonly">
                                                     <button class="cart-number cart-number-up" type="button">+</button>
                                                 </section>
-                                                <a class="text-decoration-none ms-4 cart-delete" href="{{route('customer.sales-process.remove-from-cart',$cartItem)}}">
-                                                    <i class="fa fa-trash-alt"></i>
-                                                    حذف از سبد
-                                                </a>
+                                                <a class="text-decoration-none ms-4 cart-delete" href="{{ route('customer.sales-process.remove-from-cart', $cartItem) }}"><i class="fa fa-trash-alt"></i> حذف از سبد</a>
                                             </section>
                                         </section>
                                         <section class="align-self-end flex-shrink-1">
@@ -80,13 +77,16 @@
                                         </section>
                                     </section>
                                 @endforeach
-                            </form>
-                        </section>
 
+
+
+                            </form>
+
+                        </section>
                         <section class="col-md-3">
                             <section class="content-wrapper bg-white p-3 rounded-2 cart-total-price">
                                 <section class="d-flex justify-content-between align-items-center">
-{{--                                    <p class="text-muted">قیمت کالاها ({{ $cartItem->count() }})</p>--}}
+                                    <p class="text-muted">قیمت کالاها ({{ $cartItem->count() }})</p>
                                     <p class="text-muted" id="total_product_price">{{ priceFormat($totalProductPrice) }} تومان</p>
                                 </section>
 
@@ -106,18 +106,23 @@
 
 
                                 <section class="">
-                                    <button onclick="document.getElementById('cart_items').submit()" class="btn btn-danger d-block">تکمیل فرآیند خرید</button>
+                                    <button onclick="document.getElementById('cart_items').submit();" class="btn btn-danger d-block">تکمیل فرآیند خرید</button>
                                 </section>
 
                             </section>
                         </section>
-
                     </section>
                 </section>
             </section>
+
         </section>
     </section>
     <!-- end cart -->
+
+
+
+
+
 
     <section class="mb-4">
         <section class="container-xxl" >
@@ -145,13 +150,7 @@
                                     <section class="item">
                                         <section class="lazyload-item-wrapper">
                                             <section class="product">
-                                                <section class="product-add-to-cart">
-                                                    <a href="#" data-bs-toggle="tooltip"
-                                                       data-bs-placement="left"
-                                                       title="افزودن به سبد خرید">
-                                                        <i class="fa fa-cart-plus"></i>
-                                                    </a>
-                                                </section>
+                                                <section class="product-add-to-cart"><a href="#" data-bs-toggle="tooltip" data-bs-placement="left" title="افزودن به سبد خرید"><i class="fa fa-cart-plus"></i></a></section>
                                                 @guest
                                                     <section class="product-add-to-favorite">
                                                         <button class="btn btn-light btn-sm text-decoration-none" data-url="{{ route('customer.market.add-to-favorite', $relatedProduct) }}" data-bs-toggle="tooltip" data-bs-placement="left" title="اضافه از علاقه مندی">
@@ -202,6 +201,10 @@
         </section>
     </section>
 
+
+
+
+
 @endsection
 
 
@@ -250,6 +253,7 @@
         }
 
     </script>
+
 
     <script>
         $('.product-add-to-favorite button').click(function() {

@@ -101,11 +101,13 @@ class AddressController extends Controller
         }
         else{
             $commonPercentageDiscountAmount = null;
+            $finalPrice = $totalFinalPrice;
+
         }
 
 
         $inputs['user_id'] = $user->id;
-//        $inputs['order_final_amount'] = $finalPrice;
+        $inputs['order_final_amount'] = $finalPrice;
         $inputs['order_discount_amount'] = $totalFinalDiscountPriceWithNumbers;
         $inputs['order_common_discount_amount'] = $commonPercentageDiscountAmount;
         $inputs['order_total_products_discount_amount'] = $inputs['order_discount_amount'] + $inputs['order_common_discount_amount'];
