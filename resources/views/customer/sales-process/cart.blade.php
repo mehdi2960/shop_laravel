@@ -105,8 +105,8 @@
                                 </p>
 
 
-                                <section class="">
-                                    <button onclick="document.getElementById('cart_items').submit();" class="btn btn-danger d-block">تکمیل فرآیند خرید</button>
+                                <section class="w-100">
+                                    <button onclick="document.getElementById('cart_items').submit();" class="btn btn-danger d-block w-100">تکمیل فرآیند خرید</button>
                                 </section>
 
                             </section>
@@ -253,7 +253,6 @@
         }
 
     </script>
-
 
     <script>
         $('.product-add-to-favorite button').click(function() {

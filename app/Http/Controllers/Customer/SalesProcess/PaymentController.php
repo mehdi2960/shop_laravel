@@ -29,12 +29,12 @@ class PaymentController extends Controller
         $request->validate([
             'copan' => 'required'
         ]);
-        $copan = Copan::where([['code' => $request->code], ['status', 1], ['end_date', '>', now()], ['start_date', '<', now()]])->first();
+        $copan = Copan::where([['code', $request->copan], ['status', 1], ['end_date', '>', now()], ['start_date', '<', now()]])->first();
 
         if ($copan != null) {
             if ($copan->user_id != null) //code takhfif khososi
             {
-                $copan = Copan::where([['code' => $request->code], ['status', 1], ['end_date', '>', now()], ['start_date', '<', now()], ['user_id', auth()->user()->id]])->first();
+                $copan = Copan::where([['code', $request->copan], ['status', 1], ['end_date', '>', now()], ['start_date', '<', now()], ['user_id', auth()->user()->id]])->first();
 
                 if ($copan == null) {
                     return redirect()->back()->withErrors(['copan' => ['کد تخفیف اشتباه وارد شده است.']]);
@@ -81,6 +81,7 @@ class PaymentController extends Controller
 
         $order = Order::where('user_id', Auth::user()->id)->where('order_status', 0)->first();
         $cartItems = CartItem::query()->where('user_id', Auth::user()->id)->get();
+        $cash_receiver = null;
 
         switch ($request->payment_type) {
             case '1':
@@ -94,6 +95,7 @@ class PaymentController extends Controller
             case '3':
                 $targetModel = CashPayment::class;
                 $type = 2;
+                $cash_receiver = $request->cash_receiver ? $request->cash_receiver : null;
                 break;
             default;
                 return redirect()->back()->withErrors(['error' => 'خطا']);
@@ -103,6 +105,7 @@ class PaymentController extends Controller
             'amount' => $order->order_final_amount,
             'user_id' => auth()->user()->id,
             'pay_date' => now(),
+            'cash_receiver' => $cash_receiver,
             'status' => 1,
         ]);
 
@@ -120,12 +123,11 @@ class PaymentController extends Controller
             'order_status' => 3
         ]);
 
-        foreach ($cartItems as $cartItem)
-        {
+        foreach ($cartItems as $cartItem) {
             $cartItem->delete();
         }
 
-        return redirect()->route('customer.home')->with(['success'=>'سفارش شما با موفقیت ثبت شد.']);
+        return redirect()->route('customer.home')->with(['success' => 'سفارش شما با موفقیت ثبت شد.']);
 
     }
 }
