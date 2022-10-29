@@ -10,7 +10,7 @@ class AmazingSale extends Model
 {
     use HasFactory, SoftDeletes;
 
-    protected $fillable = ['product_id', 'percentage', 'start_data', 'end_date', 'status'];
+    protected $fillable = ['product_id', 'percentage', 'start_date', 'end_date', 'status'];
 
     public function product()
     {

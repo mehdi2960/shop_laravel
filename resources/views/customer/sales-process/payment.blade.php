@@ -135,53 +135,86 @@
                             </section>
                         </section>
 
-                        <section class="col-md-3">
-                            <section class="content-wrapper bg-white p-3 rounded-2 cart-total-price">
-                                <section class="d-flex justify-content-between align-items-center">
-                                    <p class="text-muted">قیمت کالاها (2)</p>
-                                    <p class="text-muted">398,000 تومان</p>
+                            <section class="col-md-3">
+                                <section class="content-wrapper bg-white p-3 rounded-2 cart-total-price">
+                                    @php
+                                        $totalProductPrice = 0;
+                                        $totalDiscount = 0;
+                                    @endphp
+
+                                    @foreach ($cartItems as $cartItem)
+                                        @php
+                                            $totalProductPrice += $cartItem->cartItemProductPrice() * $cartItem->number;
+                                            $totalDiscount += $cartItem->cartItemProductDiscount() * $cartItem->number;
+                                        @endphp
+                                    @endforeach
+
+                                    <section class="d-flex justify-content-between align-items-center">
+                                        <p class="text-muted">قیمت کالاها ({{ $cartItems->count() }})</p>
+                                        <p class="text-muted">
+                                            <span id="total_product_price">{{ priceFormat($totalProductPrice) }}</span> تومان
+                                        </p>
+                                    </section>
+
+                                    @if ($totalDiscount != 0)
+                                        <section class="d-flex justify-content-between align-items-center border-bottom">
+                                            <p class="text-muted">تخفیف کالاها</p>
+                                            <p class="text-danger fw-bolder">
+                                                <span id="total_discount">{{ priceFormat($totalDiscount) }}</span> تومان</p>
+                                        </section>
+                                    @endif
+                                    <section class="border-bottom mb-3"></section>
+
+                                    @if ($order->commonDiscount != null)
+                                        <section class="d-flex justify-content-between align-items-center">
+                                            <p class="text-muted"> میزان تخفیف عمومی</p>
+                                            <p class="text-danger fw-bolder">
+                                                <span id="total_discount">{{ priceFormat($order->commonDiscount->percentage) }}</span> درصد</p>
+                                        </section>
+                                    @endif
+                                    <section class="border-bottom mb-3"></section>
+
+                                    @if ($order->commonDiscount != null)
+                                        <section class="d-flex justify-content-between align-items-center">
+                                            <p class="text-muted"> میزان حداکثر تخفیف عمومی</p>
+                                            <p class="text-danger fw-bolder">
+                                                <span id="total_discount">{{ priceFormat($order->commonDiscount->discount_ceiling) }}</span> تومان</p>
+                                        </section>
+                                        <section class="border-bottom mb-3"></section>
+
+                                        <section class="d-flex justify-content-between align-items-center">
+                                            <p class="text-muted">حداقل موجودی سبد خرید</p>
+                                            <p class="text-danger fw-bolder">
+                                                <span id="total_discount">{{ priceFormat($order->commonDiscount->minimal_order_amount) }}</span> تومان</p>
+                                        </section>
+                                    @endif
+
+                                    <section class="border-bottom mb-3"></section>
+                                    <section class="d-flex justify-content-between align-items-center">
+                                        <p class="text-muted">جمع سبد خرید</p>
+                                        <p class="fw-bolder">
+                                            <span id="total_price">{{ priceFormat($order->order_final_amount) }}</span>
+                                            تومان</p>
+                                    </section>
+
+                                    <p class="my-3">
+                                        <i class="fa fa-info-circle me-1"></i>کاربر گرامی خرید شما هنوز نهایی نشده است. برای
+                                        ثبت سفارش و تکمیل خرید باید ابتدا آدرس خود را انتخاب کنید و سپس نحوه ارسال را انتخاب
+                                        کنید. نحوه ارسال انتخابی شما محاسبه و به این مبلغ اضافه شده خواهد شد. و در نهایت پرداخت
+                                        این سفارش صورت میگیرد.
+                                    </p>
+
+                                    <form action="{{route('customer.sales-process.choose-address-and-delivery')}}" method="post" id="myForm">
+                                        @csrf
+                                    </form>
+
+                                    <section class="">
+                                        <button type="button" onclick="document.getElementById('myForm').submit();"
+                                                class="btn btn-danger d-block w-100">تکمیل فرآیند خرید</button>
+                                    </section>
+
                                 </section>
-
-                                <section class="d-flex justify-content-between align-items-center">
-                                    <p class="text-muted">تخفیف کالاها</p>
-                                    <p class="text-danger fw-bolder">78,000 تومان</p>
-                                </section>
-
-                                <section class="border-bottom mb-3"></section>
-
-                                <section class="d-flex justify-content-between align-items-center">
-                                    <p class="text-muted">جمع سبد خرید</p>
-                                    <p class="fw-bolder">320,000 تومان</p>
-                                </section>
-
-                                <section class="d-flex justify-content-between align-items-center">
-                                    <p class="text-muted">هزینه ارسال</p>
-                                    <p class="text-warning">54,000 تومان</p>
-                                </section>
-
-                                <section class="d-flex justify-content-between align-items-center">
-                                    <p class="text-muted">تخفیف اعمال شده</p>
-                                    <p class="text-danger">100,000 تومان</p>
-                                </section>
-
-                                <p class="my-3">
-                                    <i class="fa fa-info-circle me-1"></i> کاربر گرامی کالاها بر اساس نوع ارسالی که انتخاب می کنید در مدت زمان ذکر شده ارسال می شود.
-                                </p>
-
-                                <section class="border-bottom mb-3"></section>
-
-                                <section class="d-flex justify-content-between align-items-center">
-                                    <p class="text-muted">مبلغ قابل پرداخت</p>
-                                    <p class="fw-bold">274,000 تومان</p>
-                                </section>
-
-                                <section class="">
-                                    <section id="payment-button" class="text-warning border border-warning text-center py-2 pointer rounded-2 d-block">نوع پرداخت را انتخاب کن</section>
-                                    <a id="final-level" href="my-orders.html" class="btn btn-danger d-none">ثبت سفارش و گرفتن کد رهگیری</a>
-                                </section>
-
                             </section>
-                        </section>
 
                     </section>
                 </section>
