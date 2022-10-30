@@ -104,6 +104,8 @@ class PaymentController extends Controller
         $paymented = $targetModel::create([
             'amount' => $order->order_final_amount,
             'user_id' => auth()->user()->id,
+//            'gateway' => 'زرین پال',
+//            'transaction_id' => null,
             'pay_date' => now(),
             'cash_receiver' => $cash_receiver,
             'status' => 1,
