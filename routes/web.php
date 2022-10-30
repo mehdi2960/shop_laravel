@@ -19,7 +19,6 @@ use App\Http\Controllers\Admin\Market\OrderController;
 use App\Http\Controllers\Admin\Market\PaymentController;
 use App\Http\Controllers\Admin\Market\ProductColorController;
 use App\Http\Controllers\Admin\Market\ProductController;
-use App\Http\Controllers\Customer\Market\ProductController as CustomerProductController;
 use App\Http\Controllers\Admin\Market\PropertyController;
 use App\Http\Controllers\Admin\Market\PropertyValueController;
 use App\Http\Controllers\Admin\Market\StoreController;
@@ -36,15 +35,16 @@ use App\Http\Controllers\Admin\User\AdminUserController;
 use App\Http\Controllers\Admin\User\CustomerController;
 use App\Http\Controllers\Admin\User\PermissionController;
 use App\Http\Controllers\Admin\User\RoleController;
-use App\Http\Controllers\Admin\Content\CategoryController as ContentCategoryController;
-use App\Http\Controllers\Admin\Content\CommentController as ContentCommentController;
 use App\Http\Controllers\Auth\Coustomer\LoginRegisterController;
 use App\Http\Controllers\Customer\HomeController;
 use App\Http\Controllers\Customer\SalesProcess\AddressController;
 use App\Http\Controllers\Customer\SalesProcess\CartController;
-use App\Http\Controllers\Customer\SalesProcess\PaymentController as CustomerPaymentController;
-//use App\Http\Controllers\Customer\SalesProcess\ProfileCompelitionController;
 use App\Http\Controllers\Customer\SalesProcess\ProfileCompelitionController;
+use App\Http\Controllers\Customer\Market\ProductController as CustomerProductController;
+use App\Http\Controllers\Admin\Content\CategoryController as ContentCategoryController;
+use App\Http\Controllers\Admin\Content\CommentController as ContentCommentController;
+use App\Http\Controllers\Customer\SalesProcess\PaymentController as CustomerPaymentController;
+use App\Http\Controllers\Customer\Profile\OrderController as ProfileOrderController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -514,4 +514,9 @@ Route::namespace('SalesProcess')->group(function () {
 
     });
 
+});
+
+//Profile
+Route::namespace('Profile')->group(function () {
+    Route::get('/orders', [ProfileOrderController::class, 'index'])->name('customer.profile.orders');
 });
