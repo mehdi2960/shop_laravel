@@ -54,11 +54,13 @@
 
 
                         <section class="d-flex justify-content-center my-4">
-                            <a class="btn btn-info btn-sm mx-1" href="#">در انتظار پرداخت</a>
-                            <a class="btn btn-warning btn-sm mx-1" href="#">در حال پردازش</a>
-                            <a class="btn btn-success btn-sm mx-1" href="#">تحویل شده</a>
-                            <a class="btn btn-danger btn-sm mx-1" href="#">مرجوعی</a>
-                            <a class="btn btn-dark btn-sm mx-1" href="#">لغو شده</a>
+                            <a class="btn btn-outline-primary btn-sm mx-1" href="{{route('customer.profile.orders')}}">همه</a>
+                            <a class="btn btn-info btn-sm mx-1" href="{{route('customer.profile.orders','type=0')}}">بررسی نشده</a>
+                            <a class="btn btn-warning btn-sm mx-1" href="{{route('customer.profile.orders','type=1')}}">در انتظار تایید</a>
+                            <a class="btn btn-danger btn-sm mx-1" href="{{route('customer.profile.orders','type=2')}}">تایید نشده</a>
+                            <a class="btn btn-success btn-sm mx-1" href="{{route('customer.profile.orders','type=3')}}">تایید شده</a>
+                            <a class="btn btn-outline-danger btn-sm mx-1" href="{{route('customer.profile.orders','type=4')}}">باطل شده</a>
+                            <a class="btn btn-info btn-sm mx-1" href="{{route('customer.profile.orders','type=5')}}">مرجوع شده</a>
                         </section>
 
 
