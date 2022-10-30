@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Customer\SalesProcess;
 
 use App\Http\Controllers\Controller;
+use App\Http\Services\Payment\PaymentService;
 use App\Models\Market\CartItem;
 use App\Models\Market\CashPayment;
 use App\Models\Market\Copan;
@@ -73,7 +74,7 @@ class PaymentController extends Controller
         }
     }
 
-    public function paymentSubmit(Request $request)
+    public function paymentSubmit(Request $request, PaymentService $paymentService)
     {
         $request->validate([
             'payment_type' => 'required'
@@ -111,6 +112,10 @@ class PaymentController extends Controller
             'status' => 1,
         ]);
 
+        if ($request->payment_type == 1) {
+            $paymentService->zarinpal($order->order_final_amount, $order, $paymented);
+        }
+
         $payment = Payment::create([
             'amount' => $order->order_final_amount,
             'user_id' => auth()->user()->id,
@@ -130,6 +135,18 @@ class PaymentController extends Controller
         }
 
         return redirect()->route('customer.home')->with(['success' => 'سفارش شما با موفقیت ثبت شد.']);
+
+    }
+
+    public function paymentCallback(Order $order, OnlinePayment $onlinePayment, PaymentService $paymentService)
+    {
+        $amount = $onlinePayment->amount * 10;
+        $result = $paymentService->zarinpalVerify($amount, $onlinePayment);
+        if ($result['success']) {
+            return 'ok';
+        } else {
+            return redirect()->route('customer.home')->with('danger', 'سفارش شما با خطا مواجه شد');
+        }
 
     }
 }
