@@ -506,11 +506,10 @@ Route::namespace('SalesProcess')->group(function () {
         //select address and delivery next page
         Route::post('/choose-address-and-delivery', [AddressController::class, 'chooseAddressAndDelivery'])->name('customer.sales-process.choose-address-and-delivery');
 
-        //Payment
+        //payment and discount
         Route::get('/payment', [CustomerPaymentController::class, 'payment'])->name('customer.sales-process.payment');
         Route::post('/copan-discount', [CustomerPaymentController::class, 'copanDiscount'])->name('customer.sales-process.copan-discount');
         Route::post('/payment-submit', [CustomerPaymentController::class, 'paymentSubmit'])->name('customer.sales-process.payment-submit');
-
         Route::any('/payment-callback/{order}/{onlinePayment}', [CustomerPaymentController::class, 'paymentCallback'])->name('customer.sales-process.payment-call-back');
 
     });

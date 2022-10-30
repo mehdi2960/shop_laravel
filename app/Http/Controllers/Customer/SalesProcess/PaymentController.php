@@ -19,26 +19,23 @@ class PaymentController extends Controller
     public function payment()
     {
         $user = auth()->user();
-        $cartItems = CartItem::query()->where('user_id', $user->id)->get();
+        $cartItems = CartItem::where('user_id', $user->id)->get();
         $order = Order::where('user_id', Auth::user()->id)->where('order_status', 0)->first();
-
         return view('customer.sales-process.payment', compact('cartItems', 'order'));
     }
 
     public function copanDiscount(Request $request)
     {
-        $request->validate([
-            'copan' => 'required'
-        ]);
+        $request->validate(
+            ['copan' => 'required']
+        );
+
         $copan = Copan::where([['code', $request->copan], ['status', 1], ['end_date', '>', now()], ['start_date', '<', now()]])->first();
-
         if ($copan != null) {
-            if ($copan->user_id != null) //code takhfif khososi
-            {
+            if ($copan->user_id != null) {
                 $copan = Copan::where([['code', $request->copan], ['status', 1], ['end_date', '>', now()], ['start_date', '<', now()], ['user_id', auth()->user()->id]])->first();
-
                 if ($copan == null) {
-                    return redirect()->back()->withErrors(['copan' => ['کد تخفیف اشتباه وارد شده است.']]);
+                    return redirect()->back()->withErrors(['copan' => ['کد تخفیف اشتباه وارد شده است']]);
                 }
             }
 
@@ -59,29 +56,26 @@ class PaymentController extends Controller
                 $finalDiscount = $order->order_total_products_discount_amount + $copanDiscountAmount;
 
                 $order->update(
-                    [
-                        'copan_id' => $copan->id,
-                        'order_copan_discount_amount' => $copanDiscountAmount,
-                        'order_total_products_discount_amount' => $finalDiscount
-                    ]
+                    ['copan_id' => $copan->id, 'order_copan_discount_amount' => $copanDiscountAmount, 'order_total_products_discount_amount' => $finalDiscount]
                 );
-                return redirect()->back()->with(['copan' => 'کد تخفیف با موفقیت اعمال شد.']);
+
+                return redirect()->back()->with(['copan' => 'کد تخفیف با موفقیت اعمال شد']);
             } else {
-                return redirect()->back()->withErrors(['copan' => ['کد تخفیف اشتباه وارد شده است.']]);
+                return redirect()->back()->withErrors(['copan' => ['کد تخفیف اشتباه وارد شده است']]);
             }
         } else {
-            return redirect()->back()->withErrors(['copan' => ['کد تخفیف اشتباه وارد شده است.']]);
+            return redirect()->back()->withErrors(['copan' => ['کد تخفیف اشتباه وارد شده است']]);
         }
     }
 
     public function paymentSubmit(Request $request, PaymentService $paymentService)
     {
-        $request->validate([
-            'payment_type' => 'required'
-        ]);
+        $request->validate(
+            ['payment_type' => 'required']
+        );
 
         $order = Order::where('user_id', Auth::user()->id)->where('order_status', 0)->first();
-        $cartItems = CartItem::query()->where('user_id', Auth::user()->id)->get();
+        $cartItems = CartItem::where('user_id', Auth::user()->id)->get();
         $cash_receiver = null;
 
         switch ($request->payment_type) {
@@ -98,55 +92,63 @@ class PaymentController extends Controller
                 $type = 2;
                 $cash_receiver = $request->cash_receiver ? $request->cash_receiver : null;
                 break;
-            default;
+            default:
                 return redirect()->back()->withErrors(['error' => 'خطا']);
         }
 
         $paymented = $targetModel::create([
             'amount' => $order->order_final_amount,
             'user_id' => auth()->user()->id,
-//            'gateway' => 'زرین پال',
-//            'transaction_id' => null,
             'pay_date' => now(),
             'cash_receiver' => $cash_receiver,
             'status' => 1,
         ]);
 
+        $payment = Payment::create(
+            [
+                'amount' => $order->order_final_amount,
+                'user_id' => auth()->user()->id,
+                'pay_date' => now(),
+                'type' => $type,
+                'paymentable_id' => $paymented->id,
+                'paymentable_type' => $targetModel,
+                'staus' => 1,
+            ]
+        );
+
         if ($request->payment_type == 1) {
-            $paymentService->zarinpal($order->order_final_amount, $order, $paymented);
+            $paymentService->zarinpal($order->order_final_amount, $paymented, $order);
+        } else {
+            $order->update(
+                ['order_status' => 3]
+            );
+
+            foreach ($cartItems as $cartItem) {
+                $cartItem->delete();
+            }
+            return redirect()->route('customer.home')->with('success', 'سفارش شما با موفقیت ثبت شد');
         }
-
-        $payment = Payment::create([
-            'amount' => $order->order_final_amount,
-            'user_id' => auth()->user()->id,
-            'pay_date' => now(),
-            'type' => $type,
-            'paymentable_id' => $paymented->id,
-            'paymentable_type' => $targetModel,
-            'status' => 1,
-        ]);
-
-        $order->update([
-            'order_status' => 3
-        ]);
-
-        foreach ($cartItems as $cartItem) {
-            $cartItem->delete();
-        }
-
-        return redirect()->route('customer.home')->with(['success' => 'سفارش شما با موفقیت ثبت شد.']);
 
     }
 
-    public function paymentCallback(Order $order, OnlinePayment $onlinePayment, PaymentService $paymentService)
+    public function paymentCallback(Order $order, OnlinePayment $onlinePayment, paymentService $paymentService)
     {
         $amount = $onlinePayment->amount * 10;
         $result = $paymentService->zarinpalVerify($amount, $onlinePayment);
-        if ($result['success']) {
-            return 'ok';
-        } else {
-            return redirect()->route('customer.home')->with('danger', 'سفارش شما با خطا مواجه شد');
+        $cartItems = CartItem::where('user_id', Auth::user()->id)->get();
+        foreach ($cartItems as $cartItem) {
+            $cartItem->delete();
         }
-
+        if ($result['success']) {
+            $order->update(
+                ['order_status' => 3]
+            );
+            return redirect()->route('customer.home')->with('success', 'سفارش شما با موفقیت ثبت شد');
+        }
+        $order->update(
+            ['order_status' => 2]
+        );
+        return redirect()->route('customer.home')->with('danger', 'پرداخت ناموفق بود');
     }
+
 }
