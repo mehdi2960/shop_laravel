@@ -32,19 +32,19 @@
                             </section>
                         </section>
                         <!-- end vontent header -->
-                        @forelse(auth()->user()->products as $product)
+                        @forelse (auth()->user()->products as $product)
                             <section class="cart-item d-flex py-3">
                                 <section class="cart-img align-self-start flex-shrink-1">
-                                    <img src="{{asset($product->image['indexArray']['medium'])}}" alt="">
-                                </section>
+                                    <img src="{{ asset($product->image['indexArray']['medium']) }}" alt=""></section>
                                 <section class="align-self-end w-100">
                                     <section>
-                                        <a class="text-decoration-none cart-delete" href="{{route('customer.profile.my-favorites.delete',$product)}}">
+                                        <a class="text-decoration-none cart-delete"
+                                           href="{{ route('customer.profile.my-favorites.delete', $product) }}">
                                             <i class="fa fa-trash-alt"></i> حذف از لیست علاقه ها</a>
                                     </section>
                                 </section>
                                 <section class="align-self-end flex-shrink-1">
-                                    <section class="text-nowrap fw-bold">{{priceFormat($product->price)}} تومان</section>
+                                    <section class="text-nowrap fw-bold">{{ priceFormat($product->price) }} تومان</section>
                                 </section>
                             </section>
                         @empty
@@ -54,8 +54,6 @@
                                 </section>
                             </section>
                         @endforelse
-
-
                     </section>
                 </main>
             </section>

@@ -182,9 +182,12 @@
                                     @endforeach
 
                                     <section class="address-add-wrapper">
-                                        <button class="address-add-button" type="button" data-bs-toggle="modal"
-                                                data-bs-target="#add-address"><i class="fa fa-plus"></i> ایجاد آدرس
-                                            جدید</button>
+                                        <button class="address-add-button"
+                                                type="button" data-bs-toggle="modal"
+                                                data-bs-target="#add-address">
+                                            <i class="fa fa-plus"></i>
+                                            ایجاد آدرس جدید
+                                        </button>
                                         <!-- start add address Modal -->
                                         <section class="modal fade" id="add-address" tabindex="-1"
                                                  aria-labelledby="add-address-label" aria-hidden="true">
@@ -373,8 +376,8 @@
                                 <section class="border-bottom mb-3"></section>
                                 <section class="d-flex justify-content-between align-items-center">
                                     <p class="text-muted">جمع سبد خرید</p>
-                                    <p class="fw-bolder"><span
-                                            id="total_price">{{ priceFormat($totalProductPrice - $totalDiscount) }}</span>
+                                    <p class="fw-bolder">
+                                        <span id="total_price">{{ priceFormat($totalProductPrice - $totalDiscount) }}</span>
                                         تومان</p>
                                 </section>
 

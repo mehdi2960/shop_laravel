@@ -40,7 +40,7 @@
                                 <i class="fa fa-user"></i>
                             </button>
                             <section class="dropdown-menu dropdown-menu-end custom-drop-down" aria-labelledby="dropdownMenuButton1">
-                                <section><a class="dropdown-item" href="my-profile.html"><i class="fa fa-user-circle"></i>پروفایل کاربری</a></section>
+                                <section><a class="dropdown-item" href="{{route('customer.profile.profile')}}"><i class="fa fa-user-circle"></i>پروفایل کاربری</a></section>
                                 <section><a class="dropdown-item" href="{{route('customer.profile.orders')}}"><i class="fa fa-newspaper"></i>سفارشات</a></section>
                                 <section><a class="dropdown-item" href="{{route('customer.profile.my-favorites')}}"><i class="fa fa-heart"></i>لیست علاقه مندی</a></section>
                                 <section><hr class="dropdown-divider"></section>

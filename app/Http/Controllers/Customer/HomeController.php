@@ -13,7 +13,7 @@ class HomeController extends Controller
 {
     public function index()
     {
-//        Auth::loginUsingId(7);
+        Auth::loginUsingId(7);
         $slideShowImages = Banner::where('position', 0)->where('status', 1)->get();
         $topBanners = Banner::where('position', 1)->where('status', 1)->take(2)->get();
         $middleBanners = Banner::where('position', 2)->where('status', 1)->take(2)->get();
