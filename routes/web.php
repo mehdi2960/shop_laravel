@@ -38,6 +38,7 @@ use App\Http\Controllers\Admin\User\RoleController;
 use App\Http\Controllers\Auth\Coustomer\LoginRegisterController;
 use App\Http\Controllers\Customer\HomeController;
 use App\Http\Controllers\Customer\Profile\FavoriteController;
+use App\Http\Controllers\Customer\Profile\ProfileAddressController;
 use App\Http\Controllers\Customer\Profile\ProfileController;
 use App\Http\Controllers\Customer\SalesProcess\AddressController;
 use App\Http\Controllers\Customer\SalesProcess\CartController;
@@ -528,5 +529,6 @@ Route::namespace('Profile')->group(function () {
 
     Route::get('/profile', [ProfileController::class, 'index'])->name('customer.profile.profile');
     Route::put('/profile/update', [ProfileController::class, 'update'])->name('customer.profile.profile.update');
+    Route::get('/my-addresses', [ProfileAddressController::class, 'index'])->name('customer.profile.my-addresses');
 
 });
