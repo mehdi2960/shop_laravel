@@ -8,6 +8,7 @@ use App\Http\Services\Image\ImageService;
 use App\Models\Content\Post;
 use App\Models\Content\PostCategory;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class PostController extends Controller
 {
@@ -89,12 +90,53 @@ class PostController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param PostRequest $request
+     * @param Post $post
+     * @param ImageService $imageService
      * @return \Illuminate\Http\Response
      */
     public function update(PostRequest $request, Post $post, ImageService $imageService)
     {
+        if (!Gate::allows('update-post',$post))
+        {
+            abort(403);
+        }
+
+        // $response = Gate::inspect('update-post');
+
+        // if($response->allowed())
+        // {
+        //     // authorized...
+        // }
+        // else{
+        //     dd($response->message());
+        // }
+        // if(Gate::forUser($user)->allows('update-post', $post))
+        // {
+
+        // }
+        // else{
+
+        // }
+
+        // if(Gate::any(['update-post', 'delete-post']))
+        // {
+
+        // }
+        // else{
+
+        // }
+
+        // if(Gate::none(['update-post', 'delete-post']))
+        // {
+
+        // }
+        // else{
+
+        // }
+
+        // Gate::authorize('update-post')
+
         $inputs = $request->all();
         //date fixed
         $realTimestampStart = substr($request->published_at, 0, 10);
