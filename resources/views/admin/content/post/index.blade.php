@@ -71,7 +71,9 @@
                                     </label>
                                 </td>
                                 <td class="width-16-rem text-left">
+                                    @can('update',$post)
                                     <a href="{{ route('admin.content.post.edit', $post->id) }}" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i> ویرایش</a>
+                                    @endcan
                                     <form class="d-inline" action="{{ route('admin.content.post.destroy', $post->id) }}" method="post">
                                         @csrf
                                         {{ method_field('delete') }}

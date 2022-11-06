@@ -12,130 +12,78 @@ use Illuminate\Support\Facades\Gate;
 
 class PostController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+//    public function __construct()
+//    {
+//        $this->authorizeResource(Post::class,'post');
+//    }
+
     public function index()
     {
-        $posts=Post::query()->orderBy('created_at','desc')->simplePaginate(10);
-        return view('admin.content.post.index',compact('posts'));
+        $posts = Post::query()->orderBy('created_at', 'desc')->simplePaginate(10);
+        return view('admin.content.post.index', compact('posts'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function create()
     {
-        $postCategories=PostCategory::all();
-        return view('admin.content.post.create',compact('postCategories'));
+        $postCategories = PostCategory::all();
+        return view('admin.content.post.create', compact('postCategories'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(PostRequest $request,ImageService $imageService)
+
+    public function store(PostRequest $request, ImageService $imageService)
     {
+//        if ($request->user()->cannot('create')){
+//            abort(403);
+//        }
+
+//        $this->authorize('create',Post::class);
+
         $inputs = $request->all();
 
         //date fixed
         $realTimestampStart = substr($request->published_at, 0, 10);
         $inputs['published_at'] = date("Y-m-d H:i:s", (int)$realTimestampStart);
 
-        if($request->hasFile('image'))
-        {
+        if ($request->hasFile('image')) {
             $imageService->setExclusiveDirectory('images' . DIRECTORY_SEPARATOR . 'post');
             $result = $imageService->createIndexAndSave($request->file('image'));
 
-            if($result === false)
-            {
+            if ($result === false) {
                 return redirect()->route('admin.content.post.index')->with('swal-error', 'آپلود تصویر با خطا مواجه شد');
             }
             $inputs['image'] = $result;
         }
-        $inputs['author_id'] = 1;
+        $inputs['author_id'] = auth()->user()->id;
         $post = Post::create($inputs);
         return redirect()->route('admin.content.post.index')->with('swal-success', 'پست  جدید شما با موفقیت ثبت شد');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function show($id)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function edit(Post $post)
     {
         $postCategories = PostCategory::all();
         return view('admin.content.post.edit', compact('post', 'postCategories'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param PostRequest $request
-     * @param Post $post
-     * @param ImageService $imageService
-     * @return \Illuminate\Http\Response
-     */
+
     public function update(PostRequest $request, Post $post, ImageService $imageService)
     {
-        if (!Gate::allows('update-post',$post))
-        {
-            abort(403);
-        }
+//        if (!Gate::allows('update-post', $post)) {
+//            abort(403);
+//        }
+//
+//        if ($request->user()->cannot('update', $post)) {
+//            abort(403);
+//        }
 
-        // $response = Gate::inspect('update-post');
-
-        // if($response->allowed())
-        // {
-        //     // authorized...
-        // }
-        // else{
-        //     dd($response->message());
-        // }
-        // if(Gate::forUser($user)->allows('update-post', $post))
-        // {
-
-        // }
-        // else{
-
-        // }
-
-        // if(Gate::any(['update-post', 'delete-post']))
-        // {
-
-        // }
-        // else{
-
-        // }
-
-        // if(Gate::none(['update-post', 'delete-post']))
-        // {
-
-        // }
-        // else{
-
-        // }
-
-        // Gate::authorize('update-post')
+//          $this->authorize('update',$post);
 
         $inputs = $request->all();
         //date fixed
@@ -163,18 +111,12 @@ class PostController extends Controller
         return redirect()->route('admin.content.post.index')->with('swal-success', 'پست  شما با موفقیت ویرایش شد');;
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function destroy(Post $post)
     {
         $post->delete();
         return redirect()->route('admin.content.post.index')->with('swal-success', 'پست  شما با موفقیت حذف شد');
     }
-
 
 
     public function status(Post $post)
