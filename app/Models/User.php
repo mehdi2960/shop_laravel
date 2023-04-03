@@ -59,7 +59,6 @@ class User extends Authenticatable
         return "{$this->first_name} {$this->last_name}";
     }
 
-
     public function ticketAdmin()
     {
         return $this->hasOne(TicketAdmin::class);
@@ -94,7 +93,8 @@ class User extends Authenticatable
         return $this->hasMany(Order::class);
     }
 
-    public function products(){
+    public function products()
+    {
         return $this->belongsToMany(Product::class);
     }
 }

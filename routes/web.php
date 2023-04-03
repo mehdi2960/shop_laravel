@@ -37,6 +37,7 @@ use App\Http\Controllers\Admin\User\PermissionController;
 use App\Http\Controllers\Admin\User\RoleController;
 use App\Http\Controllers\Auth\Coustomer\LoginRegisterController;
 use App\Http\Controllers\Customer\HomeController;
+use App\Http\Controllers\Customer\LogoutController;
 use App\Http\Controllers\Customer\Profile\FavoriteController;
 use App\Http\Controllers\Customer\Profile\ProfileAddressController;
 use App\Http\Controllers\Customer\Profile\ProfileController;
@@ -48,8 +49,8 @@ use App\Http\Controllers\Admin\Content\CategoryController as ContentCategoryCont
 use App\Http\Controllers\Admin\Content\CommentController as ContentCommentController;
 use App\Http\Controllers\Customer\SalesProcess\PaymentController as CustomerPaymentController;
 use App\Http\Controllers\Customer\Profile\OrderController as ProfileOrderController;
+use App\Http\Controllers\Customer\Profile\TicketController as ProfileTicketController;
 use Illuminate\Support\Facades\Route;
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -479,6 +480,9 @@ Route::namespace('Auth')->group(function () {
 
 Route::get('/', [HomeController::class, 'index'])->name('customer.home');
 
+//Search
+Route::get('/products', [HomeController::class, 'products'])->name('customer.products');
+
 
 Route::namespace('Market')->group(function () {
     Route::get('/product/{product:slug}', [CustomerProductController::class, 'product'])->name('customer.market.product');
@@ -533,5 +537,8 @@ Route::namespace('Profile')->group(function () {
     Route::get('/profile', [ProfileController::class, 'index'])->name('customer.profile.profile');
     Route::put('/profile/update', [ProfileController::class, 'update'])->name('customer.profile.profile.update');
     Route::get('/my-addresses', [ProfileAddressController::class, 'index'])->name('customer.profile.my-addresses');
+    Route::get('/my-tickets', [ProfileTicketController::class, 'index'])->name('customer.profile.my-tickets');
 
 });
+
+

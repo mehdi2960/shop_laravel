@@ -50,7 +50,11 @@ body {
 .top-nav {
 
 }
-
+text-decoration-none {
+    color: #000 !important;
+    font-weight: bold;
+    font-size: 23px;
+}
 
 /* start search*/
 .search-wrapper {

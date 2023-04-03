@@ -34,10 +34,10 @@ class LoginRegisterController extends Controller
             if (empty($user)) {
                 $newUser['email'] = $inputs['id'];
             }
-        } //check id is mobile or not
+        }
+        //check id is mobile or not
         elseif (preg_match('/^(\+98|98|0)9\d{9}$/', $inputs['id'])) {
             $type = 0;  // 0 => mobile;
-
 
             // all mobile numbers are in on format 9** *** ***
             $inputs['id'] = ltrim($inputs['id'], '0');

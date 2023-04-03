@@ -7,7 +7,7 @@
             @csrf
             <section class="login-wrapper mb-5">
                 <section class="login-logo">
-                    <img src="{{ asset('customer-assets/images/logo/4.png') }}" alt="">
+                    <img src="{{ asset('customer-assets/images/logo/tik-market.png') }}" alt="" style="width: 310px; height: 75px;">
                 </section>
                 <section class="login-title">ورود / ثبت نام</section>
                 <section class="login-info">شماره موبایل یا پست الکترونیک خود را وارد کنید</section>
@@ -36,8 +36,8 @@
 {{--                @enderror--}}
 {{--                <br>--}}
 
-                <section class="login-btn d-grid g-2"><button class="btn btn-danger">ورود به آمازون</button></section>
-                <section class="login-terms-and-conditions"><a href="#">شرایط و قوانین</a> را خوانده ام و پذیرفته ام</section>
+                <section class="login-btn d-grid g-2"><button class="btn btn-danger">ورود </button></section>
+{{--                <section class="login-terms-and-conditions"><a href="#">شرایط و قوانین</a> را خوانده ام و پذیرفته ام</section>--}}
             </section>
         </form>
 

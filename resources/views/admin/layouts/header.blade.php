@@ -103,7 +103,7 @@
                      <span class="ml-3 ml-md-5 position-relative">
                         <span id="header-profile-toggle" class="pointer">
                             <img class="header-avatar" src="{{asset('/admin-assets/images/avatar-2.jpg')}}" alt="">
-                            <span class="header-username">مهدی موسوی</span>
+                            <span class="header-username">{{auth()->user()->getFullNameAttribute()}}</span>
                             <i class="fas fa-angle-down"></i>
                          </span>
                           <section id="header-profile" class="header-profile rounded">

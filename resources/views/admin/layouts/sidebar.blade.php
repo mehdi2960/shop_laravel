@@ -2,9 +2,14 @@
     <section class="sidebar-container">
         <section class="sidebar-wrapper">
 
-            <a href="#" class="sidebar-link">
+            <a href="{{route('customer.home')}}" class="sidebar-link" target="_blank">
+                <i class="fas fa-shopping-cart"></i>
+                <span>فروشگاه</span>
+            </a>
+
+            <a href="{{route('admin.home')}}" class="sidebar-link">
                 <i class="fas fa-home"></i>
-                <span>خانه</span>
+                <span>پیشخوان</span>
             </a>
 
             <section class="sidebar-part-title">بخش فروش</section>

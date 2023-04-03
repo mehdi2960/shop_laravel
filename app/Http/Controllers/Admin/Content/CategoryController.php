@@ -39,17 +39,15 @@ class CategoryController extends Controller
      * @param ImageService $imageService
      * @return \Illuminate\Http\Response
      */
-    public function store(PostCategoryRequest $request,ImageService $imageService)
+    public function store(PostCategoryRequest $request, ImageService $imageService)
     {
         $inputs = $request->all();
 
-        if($request->hasFile('image'))
-        {
+        if ($request->hasFile('image')) {
             $imageService->setExclusiveDirectory('images' . DIRECTORY_SEPARATOR . 'post-category');
             $result = $imageService->createIndexAndSave($request->file('image'));
         }
-        if($result === false)
-        {
+        if ($result === false) {
             return redirect()->route('admin.content.category.index')->with('swal-error', 'آپلود تصویر با خطا مواجه شد');
         }
 
@@ -87,27 +85,22 @@ class CategoryController extends Controller
      * @param PostCategory $postCategory
      * @return \Illuminate\Http\Response
      */
-    public function update(PostCategoryRequest $request, PostCategory $postCategory,ImageService $imageService)
+    public function update(PostCategoryRequest $request, PostCategory $postCategory, ImageService $imageService)
     {
         $inputs = $request->all();
 
-        if($request->hasFile('image'))
-        {
-            if(!empty($postCategory->image))
-            {
+        if ($request->hasFile('image')) {
+            if (!empty($postCategory->image)) {
                 $imageService->deleteDirectoryAndFiles($postCategory->image['directory']);
             }
             $imageService->setExclusiveDirectory('images' . DIRECTORY_SEPARATOR . 'post-category');
             $result = $imageService->createIndexAndSave($request->file('image'));
-            if($result === false)
-            {
+            if ($result === false) {
                 return redirect()->route('admin.content.category.index')->with('swal-error', 'آپلود تصویر با خطا مواجه شد');
             }
             $inputs['image'] = $result;
-        }
-        else{
-            if(isset($inputs['currentImage']) && !empty($postCategory->image))
-            {
+        } else {
+            if (isset($inputs['currentImage']) && !empty($postCategory->image)) {
                 $image = $postCategory->image;
                 $image['currentImage'] = $inputs['currentImage'];
                 $inputs['image'] = $image;
@@ -135,15 +128,13 @@ class CategoryController extends Controller
         $postCategory->status = $postCategory->status == 0 ? 1 : 0;
         $result = $postCategory->save();
 
-        if($result){
-            if($postCategory->status == 0){
+        if ($result) {
+            if ($postCategory->status == 0) {
                 return response()->json(['status' => true, 'checked' => false]);
-            }
-            else{
+            } else {
                 return response()->json(['status' => true, 'checked' => true]);
             }
-        }
-        else{
+        } else {
             return response()->json(['status' => false]);
         }
     }
