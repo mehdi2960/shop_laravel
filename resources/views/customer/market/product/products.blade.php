@@ -480,12 +480,11 @@
                         </section>
                         <section class="sort ">
                             <span>مرتب سازی بر اساس : </span>
-                            <button class="btn btn-info btn-sm px-1 py-0" type="button">جدیدترین</button>
-                            <button class="btn btn-light btn-sm px-1 py-0" type="button">محبوب ترین</button>
-                            <button class="btn btn-light btn-sm px-1 py-0" type="button">گران ترین</button>
-                            <button class="btn btn-light btn-sm px-1 py-0" type="button">ارزان ترین</button>
-                            <button class="btn btn-light btn-sm px-1 py-0" type="button">پربازدیدترین</button>
-                            <button class="btn btn-light btn-sm px-1 py-0" type="button">پرفروش ترین</button>
+                            <a class="btn {{request()->sort=='1'?'btn-info':''}} btn-sm px-1 py-0" href="{{route('customer.products',['search'=>request()->search,'sort'=>'1'])}}">جدیدترین</a>
+                            <a class="btn {{request()->sort=='2'?'btn-info':''}} btn-sm px-1 py-0" href="{{route('customer.products',['search'=>request()->search,'sort'=>'2'])}}">گران ترین</a>
+                            <a class="btn {{request()->sort=='3'?'btn-info':''}} btn-sm px-1 py-0" href="{{route('customer.products',['search'=>request()->search,'sort'=>'3'])}}">ارزان ترین</a>
+                            <a class="btn {{request()->sort=='4'?'btn-info':''}} btn-sm px-1 py-0" href="{{route('customer.products',['search'=>request()->search,'sort'=>'4'])}}">پربازدیدترین</a>
+                            <a class="btn {{request()->sort=='5'?'btn-info':''}} btn-sm px-1 py-0" href="{{route('customer.products',['search'=>request()->search,'sort'=>'5'])}}">پرفروش ترین</a>
                         </section>
 
                         <section class="main-product-wrapper row my-4" >

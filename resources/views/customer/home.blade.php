@@ -35,7 +35,6 @@
                             <img class="w-100 rounded-2" src="{{ asset($topBanner->image) }}" alt="{{$topBanner->title}}">
                         </a>
                     @endforeach
-
                 </section>
             </section>
         </section>
