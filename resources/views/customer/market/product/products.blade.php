@@ -380,7 +380,9 @@
                             <section class="sidebar-brand-wrapper">
                                 @foreach($brands as $brand)
                                 <section class="form-check sidebar-brand-item">
-                                    <input class="form-check-input" name="brands[]" type="checkbox" value="{{$brand->id}}" id="{{$brand->id}}">
+                                    <input class="form-check-input"
+                                           name="brands[]" @if(request()->brands && in_array($brand->id,request()->brands)) checked @endif
+                                           type="checkbox" value="{{$brand->id}}" id="{{$brand->id}}">
                                     <label class="form-check-label d-flex justify-content-between" for="{{$brand->id}}">
                                         <span>{{$brand->persian_name}}</span>
                                         <span>{{$brand->original_name}}</span>
@@ -430,11 +432,11 @@
                         </section>
                         <section class="sort ">
                             <span>مرتب سازی بر اساس : </span>
-                            <a class="btn {{request()->sort=='1'?'btn-info':''}} btn-sm px-1 py-0" href="{{route('customer.products',['search'=>request()->search,'sort'=>'1','main_price'=>request()->main_price,'max_price'=>request()->max_price])}}">جدیدترین</a>
-                            <a class="btn {{request()->sort=='2'?'btn-info':''}} btn-sm px-1 py-0" href="{{route('customer.products',['search'=>request()->search,'sort'=>'2','main_price'=>request()->main_price,'max_price'=>request()->max_price])}}">گران ترین</a>
-                            <a class="btn {{request()->sort=='3'?'btn-info':''}} btn-sm px-1 py-0" href="{{route('customer.products',['search'=>request()->search,'sort'=>'3','main_price'=>request()->main_price,'max_price'=>request()->max_price])}}">ارزان ترین</a>
-                            <a class="btn {{request()->sort=='4'?'btn-info':''}} btn-sm px-1 py-0" href="{{route('customer.products',['search'=>request()->search,'sort'=>'4','main_price'=>request()->main_price,'max_price'=>request()->max_price])}}">پربازدیدترین</a>
-                            <a class="btn {{request()->sort=='5'?'btn-info':''}} btn-sm px-1 py-0" href="{{route('customer.products',['search'=>request()->search,'sort'=>'5','main_price'=>request()->main_price,'max_price'=>request()->max_price])}}">پرفروش ترین</a>
+                            <a class="btn {{request()->sort=='1'?'btn-info':''}} btn-sm px-1 py-0" href="{{route('customer.products',['search'=>request()->search,'sort'=>'1','main_price'=>request()->main_price,'max_price'=>request()->max_price,'brands'=>request()->brands])}}">جدیدترین</a>
+                            <a class="btn {{request()->sort=='2'?'btn-info':''}} btn-sm px-1 py-0" href="{{route('customer.products',['search'=>request()->search,'sort'=>'2','main_price'=>request()->main_price,'max_price'=>request()->max_price,'brands'=>request()->brands])}}">گران ترین</a>
+                            <a class="btn {{request()->sort=='3'?'btn-info':''}} btn-sm px-1 py-0" href="{{route('customer.products',['search'=>request()->search,'sort'=>'3','main_price'=>request()->main_price,'max_price'=>request()->max_price,'brands'=>request()->brands])}}">ارزان ترین</a>
+                            <a class="btn {{request()->sort=='4'?'btn-info':''}} btn-sm px-1 py-0" href="{{route('customer.products',['search'=>request()->search,'sort'=>'4','main_price'=>request()->main_price,'max_price'=>request()->max_price,'brands'=>request()->brands])}}">پربازدیدترین</a>
+                            <a class="btn {{request()->sort=='5'?'btn-info':''}} btn-sm px-1 py-0" href="{{route('customer.products',['search'=>request()->search,'sort'=>'5','main_price'=>request()->main_price,'max_price'=>request()->max_price,'brands'=>request()->brands])}}">پرفروش ترین</a>
                         </section>
 
                         <section class="main-product-wrapper row my-4" >
