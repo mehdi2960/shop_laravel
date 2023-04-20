@@ -423,11 +423,36 @@
                 <main id="main-body" class="main-body col-md-9">
                     <section class="content-wrapper bg-white p-3 rounded-2 mb-2">
                         <section class="filters mb-3">
-                            <span class="d-inline-block border p-1 rounded bg-light">نتیجه جستجو برای : <span class="badge bg-info text-dark">"کتاب اثر مرک"</span></span>
-                            <span class="d-inline-block border p-1 rounded bg-light">برند : <span class="badge bg-info text-dark">"کتاب"</span></span>
-                            <span class="d-inline-block border p-1 rounded bg-light">دسته : <span class="badge bg-info text-dark">"کتاب"</span></span>
-                            <span class="d-inline-block border p-1 rounded bg-light">قیمت از : <span class="badge bg-info text-dark">25,000 تومان</span></span>
-                            <span class="d-inline-block border p-1 rounded bg-light">قیمت تا : <span class="badge bg-info text-dark">360,000 تومان</span></span>
+                            @if(request()->search)
+                                <span class="d-inline-block border p-1 rounded bg-light">
+                                نتیجه جستجو برای :
+                                    <span class="badge bg-info text-dark">{{request()->search}}</span>
+                               </span>
+                            @endif
+                            @if(request()->brands)
+                                <span class="d-inline-block border p-1 rounded bg-light">
+                                    برند :
+                                    <span class="badge bg-info text-dark">{{implode(', ',$selectedBrandsArray)}}</span>
+                                </span>
+                            @endif
+                            @if(request()->brands)
+                                <span class="d-inline-block border p-1 rounded bg-light">
+                                    دسته :
+                                    <span class="badge bg-info text-dark">"کتاب"</span>
+                                </span>
+                            @endif
+                            @if(request()->min_price)
+                                <span class="d-inline-block border p-1 rounded bg-light">
+                                    قیمت از :
+                                    <span class="badge bg-info text-dark">{{request()->max_price}} تومان</span>
+                                </span>
+                            @endif
+                            @if(request()->max_price)
+                                <span class="d-inline-block border p-1 rounded bg-light">
+                                    قیمت تا :
+                                    <span class="badge bg-info text-dark">{{request()->max_price}} تومان</span>
+                                </span>
+                            @endif
 
                         </section>
                         <section class="sort ">
