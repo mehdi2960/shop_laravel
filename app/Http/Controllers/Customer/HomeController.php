@@ -7,6 +7,7 @@ use App\Models\Content\Banner;
 use App\Models\Content\Menu;
 use App\Models\Market\Brand;
 use App\Models\Market\Product;
+use App\Models\Market\ProductCategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -31,6 +32,7 @@ class HomeController extends Controller
         //get Brands
         $brands = Brand::all();
 
+        $categories=ProductCategory::whereNull('parent_id')->get();
         //switch for set sort for filtering
         switch ($request->sort) {
             case "1":
@@ -57,6 +59,8 @@ class HomeController extends Controller
                 $column = "created_at";
                 $direction = "ASC";
         }
+
+
         if ($request->search) {
             $query = Product::where('name', "LIKE", "%" . $request->search . "%")->orderBy($column, $direction);
         } else {
@@ -85,6 +89,6 @@ class HomeController extends Controller
                 array_push($selectedBrandsArray,$selectedBrand->original_name);
             }
         }
-        return view('customer.market.product.products', compact('products', 'brands','selectedBrandsArray'));
+        return view('customer.market.product.products', compact('products', 'brands','selectedBrandsArray','categories'));
     }
 }
