@@ -286,7 +286,7 @@
 
                                 <section class="item">
                                     <section class="brand-item">
-                                        <a href="#">
+                                        <a href="{{route('customer.products',['brands[]'=>$brand->id])}}">
                                             <img class="rounded-2" src="{{ asset($brand->logo['indexArray']['medium']) }}" alt="">
                                         </a>
                                     </section>
@@ -324,7 +324,6 @@
 @endsection
 
 @section('script')
-
     <script>
         $('.product-add-to-favorite button').click(function() {
             var url = $(this).attr('data-url');
@@ -352,5 +351,4 @@
             })
         })
     </script>
-
 @endsection
