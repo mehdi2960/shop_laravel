@@ -479,9 +479,8 @@ Route::namespace('Auth')->group(function () {
 //});
 
 Route::get('/', [HomeController::class, 'index'])->name('customer.home');
-
 //Search
-Route::get('/products', [HomeController::class, 'products'])->name('customer.products');
+Route::get('/products/{category?}', [HomeController::class, 'products'])->name('customer.products');
 
 
 Route::namespace('Market')->group(function () {

@@ -27,12 +27,18 @@ class HomeController extends Controller
 
     }
 
-    public function products(Request $request)
+    public function products(Request $request, ProductCategory $category = null)
     {
         //get Brands
         $brands = Brand::all();
 
-        $categories=ProductCategory::whereNull('parent_id')->get();
+        //category Selection
+        if ($category)
+            $productModal = $category->products();
+        else
+            $productModal = new Product();
+
+        $categories = ProductCategory::whereNull('parent_id')->get();
         //switch for set sort for filtering
         switch ($request->sort) {
             case "1":
@@ -62,9 +68,9 @@ class HomeController extends Controller
 
 
         if ($request->search) {
-            $query = Product::where('name', "LIKE", "%" . $request->search . "%")->orderBy($column, $direction);
+            $query =$productModal->where('name', "LIKE", "%" . $request->search . "%")->orderBy($column, $direction);
         } else {
-            $query = Product::orderBy($column, $direction);
+            $query = $productModal->orderBy($column, $direction);
         }
         $products = $request->min_price && $request->max_price ? $query->whereBetween('price', [$request->min_price, $request->max_price]) :
             $query->when($request->min_price, function ($query) use ($request) {
@@ -77,18 +83,16 @@ class HomeController extends Controller
         $products = $products->when($request->brands, function () use ($request, $products) {
             $products->whereIn('brand_id', $request->brands);
         });
-        $products = $products->get();
+        $products = $products->paginate(5);
 
         //get selected brands
-        $selectedBrandsArray=[];
-        if ($request->brands)
-        {
-            $selectedBrands=Brand::query()->find($request->brands);
-            foreach ($selectedBrands as $selectedBrand)
-            {
-                array_push($selectedBrandsArray,$selectedBrand->original_name);
+        $selectedBrandsArray = [];
+        if ($request->brands) {
+            $selectedBrands = Brand::query()->find($request->brands);
+            foreach ($selectedBrands as $selectedBrand) {
+                array_push($selectedBrandsArray, $selectedBrand->original_name);
             }
         }
-        return view('customer.market.product.products', compact('products', 'brands','selectedBrandsArray','categories'));
+        return view('customer.market.product.products', compact('products', 'brands', 'selectedBrandsArray', 'categories'));
     }
 }
