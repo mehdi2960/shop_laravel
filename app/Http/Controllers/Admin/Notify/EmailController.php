@@ -6,7 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\Notify\EmailRequest;
 use App\Http\Services\Message\Email\EmailService;
 use App\Http\Services\Message\MessageSerivce;
+use App\Jobs\SendEmailToUsers;
 use App\Models\Notify\Email;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class EmailController extends Controller
@@ -37,7 +39,7 @@ class EmailController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(EmailRequest $request)
@@ -53,7 +55,7 @@ class EmailController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -64,7 +66,7 @@ class EmailController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function edit(Email $email)
@@ -76,8 +78,8 @@ class EmailController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function update(EmailRequest $request, Email $email)
@@ -93,7 +95,7 @@ class EmailController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy(Email $email)
@@ -103,19 +105,18 @@ class EmailController extends Controller
     }
 
 
-    public function status(Email $email){
+    public function status(Email $email)
+    {
 
         $email->status = $email->status == 0 ? 1 : 0;
         $result = $email->save();
-        if($result){
-            if($email->status == 0){
+        if ($result) {
+            if ($email->status == 0) {
                 return response()->json(['status' => true, 'checked' => false]);
-            }
-            else{
+            } else {
                 return response()->json(['status' => true, 'checked' => true]);
             }
-        }
-        else{
+        } else {
             return response()->json(['status' => false]);
         }
 
@@ -123,17 +124,7 @@ class EmailController extends Controller
 
     public function sendMail(Email $email)
     {
-    $emailService = new EmailService();
-        $details = [
-            'title' => $email->subject,
-            'body' => $email->body
-        ];
-        $emailService->setDetails($details);
-        $emailService->setFrom('noreply@example.com', 'example');
-        $emailService->setSubject($email->subject);
-        $emailService->setTo('mehdiprogrammer30@gmail.com');
-        $messagesService = new MessageSerivce($emailService);
-        $messagesService->send();
+        sendEmailToUsers::dispatch($email);
         return back();
     }
 }
