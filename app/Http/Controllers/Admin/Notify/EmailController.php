@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Admin\Notify;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\Notify\EmailRequest;
+use App\Http\Services\Message\Email\EmailService;
+use App\Http\Services\Message\MessageSerivce;
 use App\Models\Notify\Email;
 use Illuminate\Http\Request;
 
@@ -117,5 +119,21 @@ class EmailController extends Controller
             return response()->json(['status' => false]);
         }
 
+    }
+
+    public function sendMail(Email $email)
+    {
+    $emailService = new EmailService();
+        $details = [
+            'title' => $email->subject,
+            'body' => $email->body
+        ];
+        $emailService->setDetails($details);
+        $emailService->setFrom('noreply@example.com', 'example');
+        $emailService->setSubject($email->subject);
+        $emailService->setTo('mehdiprogrammer30@gmail.com');
+        $messagesService = new MessageSerivce($emailService);
+        $messagesService->send();
+        return back();
     }
 }

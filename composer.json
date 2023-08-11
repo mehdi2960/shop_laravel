@@ -15,6 +15,7 @@
         "laravel/sanctum": "^2.11",
         "laravel/tinker": "^2.5",
         "morilog/jalali": "^3.3",
+        "nagy/laravel-rating": "^2.2",
         "saeedpooyanfar/zarinpal": "^5.0",
         "uxweb/sweet-alert": "^2.0"
     },

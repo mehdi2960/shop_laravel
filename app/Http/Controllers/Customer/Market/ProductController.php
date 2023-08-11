@@ -15,7 +15,7 @@ class ProductController extends Controller
         $relatedProducts = Product::with('category')->whereHas('category',function ($query) use ($product){
             $query->where('id',$product->category->id);
         })->get()->except($product->id);
-        Auth::loginUsingId(7);
+//        Auth::loginUsingId(7);
         return view('customer.market.product.product', compact('relatedProducts', 'product'));
     }
 
