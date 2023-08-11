@@ -124,7 +124,7 @@ class EmailController extends Controller
 
     public function sendMail(Email $email)
     {
-        sendEmailToUsers::dispatch($email);
+        SendEmailToUsers::dispatch($email);
         return back();
     }
 }
